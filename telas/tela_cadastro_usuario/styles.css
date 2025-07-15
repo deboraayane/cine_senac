@@ -1,0 +1,279 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #1f1f1f;
+  color: #021a39;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(2, 26, 57, 0.1);
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid rgba(2, 26, 57, 0.1);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.header h1 {
+  color: #021a39;
+  font-size: 28px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.header p {
+  color: rgba(2, 26, 57, 0.7);
+  font-size: 14px;
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  color: #021a39;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 16px;
+  background: #ffffff;
+  border: 2px solid rgba(2, 26, 57, 0.2);
+  border-radius: 8px;
+  color: #021a39;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #f68c1e;
+  box-shadow: 0 0 0 3px rgba(246, 140, 30, 0.1);
+}
+
+.form-group input::placeholder {
+  color: rgba(2, 26, 57, 0.5);
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #f68c1e;
+  margin-top: 2px;
+}
+
+.checkbox-group label {
+  font-size: 14px;
+  color: rgba(2, 26, 57, 0.8);
+  line-height: 1.4;
+}
+
+.checkbox-group a {
+  color: #f68c1e;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.checkbox-group a:hover {
+  color: #ffba75;
+}
+
+.submit-btn {
+  width: 100%;
+  background: #f68c1e;
+  color: #ffffff;
+  border: none;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 24px;
+}
+
+.submit-btn:hover {
+  background: #ffba75;
+  transform: translateY(-1px);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.auth-link {
+  text-align: center;
+  color: rgba(2, 26, 57, 0.7);
+  font-size: 14px;
+}
+
+.auth-link a {
+  color: #f68c1e;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.auth-link a:hover {
+  color: #ffba75;
+}
+
+.forgot-password {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.forgot-password a {
+  color: #f68c1e;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.forgot-password a:hover {
+  color: #ffba75;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    padding: 32px 24px;
+    margin: 0 16px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .form-group input {
+    padding: 12px 14px;
+    font-size: 16px;
+  }
+
+  .submit-btn {
+    padding: 14px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 16px;
+  }
+
+  .container {
+    padding: 24px 20px;
+    margin: 0;
+  }
+
+  .header h1 {
+    font-size: 22px;
+  }
+
+  .header p {
+    font-size: 13px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+  }
+
+  .form-group input {
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  .checkbox-group {
+    gap: 10px;
+  }
+
+  .checkbox-group label {
+    font-size: 13px;
+  }
+
+  .submit-btn {
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  .auth-link {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 20px 16px;
+  }
+
+  .header {
+    margin-bottom: 24px;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+}
+.senha-wrapper {
+  position: relative;
+}
+
+.senha-wrapper input {
+  width: 100%;
+  padding-right: 40px; /* espaço para o ícone */
+}
+
+.toggle-senha {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none;
+  font-size: 1.2em;
+}

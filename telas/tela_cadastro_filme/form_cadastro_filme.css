@@ -1,0 +1,177 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 30px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.select-wrapper {
+  position: relative;           /* Necessário para posicionar a seta */
+  width: 100%;                 /* Largura total */
+}
+
+.select-wrapper select {
+    width: 100%;
+    height: 42px;
+    padding: 10px;
+    padding-right: 30px;         /* Espaço para a seta à direita */
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+  -webkit-appearance: none;    /* Remove estilo padrão do select */
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.select-wrapper::after {
+    content: "";                 /* Gera uma seta personalizada */
+    position: absolute;
+    pointer-events: none;        /* Não interfere no clique */
+    right: 15px;                 /* Distância da direita */
+    top: 50%;                   /* Centraliza verticalmente */
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;   /* Triângulo da seta */
+    border-right: 6px solid transparent;
+    border-top: 6px solid #333;            /* Cor da seta */
+    transform: translateY(-50%);           /* Ajusta a posição vertical */
+}
+
+
+input[type="text"],
+input[type="number"],
+input[type="url"],
+input[type="file"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    }
+
+input[type="submit"] {
+    background-color: #ff8c42; /* Laranja vibrante */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
+input[type="submit"]:hover {
+  background-color: #e6762f; /* Laranja escuro no hover */
+  transform: translateY(-2px); /* Eleva levemente ao passar o mouse */
+}
+
+
+input[type="submit"]:hover {
+    background-color: #F68C1E;
+}
+
+.custom-multiselect {
+    position: relative;          /* Para dropdown posicionado corretamente */
+    width: 100%;
+    margin-top: 5px;
+}
+
+.custom-multiselect .select-box {
+    position: relative;
+    width: 100%;
+    height: 42px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #fff;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;               /* Layout flexível para alinhar texto */
+    align-items: center;         /* Alinha verticalmente ao centro */
+    justify-content: flex-start; /* Texto à esquerda */
+}
+
+.custom-multiselect .select-box::after {
+    content: "";                /* Setinha igual ao select */
+    position: absolute;
+    pointer-events: none;
+    right: 15px;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #333;
+    transform: translateY(-50%);
+}
+
+.arrow {
+  display: none;              /* Esconde a seta extra no HTML */
+}
+
+#selected {
+  flex: 1;                   /* Ocupa o máximo espaço possível */
+  overflow: hidden;          /* Esconde texto que ultrapassa */
+  white-space: nowrap;       /* Impede quebra de linha */
+  text-overflow: ellipsis;   /* Adiciona "..." quando texto é longo */
+}
+
+/* Dropdown escondido inicialmente */
+.checkboxes {
+    display: none;             /* Não aparece ao carregar */
+    position: absolute;        /* Fica sobre outros elementos */
+    top: 100%;                 /* Fica logo abaixo da caixa */
+    left: 0;
+    width: 100%;
+    background-color: #fff;    /* Fundo branco */
+    border: 1px solid #ccc;
+    border-top: none;          /* Evita borda duplicada no topo */
+    max-height: 150px;         /* Altura máxima com scroll */
+    overflow-y: auto;          /* Barra de rolagem vertical se necessário */
+    z-index: 100;              /* Fica acima de outros elementos */
+}
+
+/* Estilo dos itens checkbox */
+.checkboxes label {
+    display: block;            /* Cada checkbox fica em linha nova */
+    padding: 8px 10px;         /* Espaçamento interno */
+    cursor: pointer;           /* Cursor pointer para indicar clicável */
+    font-size: 14px;
+}
+
+.checkboxes label:hover {
+  background-color: #f4f4f4; /* Destaque ao passar o mouse */
+}

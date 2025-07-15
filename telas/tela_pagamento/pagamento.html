@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pagamento - PIX e Cartão</title>
+    <script>
+  // Ao carregar a página, busca o total no localStorage
+  window.addEventListener('DOMContentLoaded', () => {
+    const detalhes = JSON.parse(localStorage.getItem('detalhesCompra'));
+    if (detalhes && detalhes.total) {
+      const valorFormatado = detalhes.total.toFixed(2).replace('.', ',');
+      document.querySelector('.amount-value').textContent = `R$ ${valorFormatado}`;
+    }
+  });
+</script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="payment-container">
+      <div class="payment-header">
+        <h1 class="payment-title">Finalizar Pagamento</h1>
+        <p class="payment-subtitle">Escolha sua forma de pagamento</p>
+      </div>
+
+      <div class="payment-amount">
+        <div class="amount-label">Total a pagar</div>
+        <div class="amount-value">R$ 0,00</div>
+      </div>
+      
+
+      <div class="payment-methods">
+        <div class="method-selector">
+          <div class="method-option active" data-method="pix">PIX</div>
+          <div class="method-option" data-method="card">Cartão</div>
+        </div>
+
+        <div class="payment-content">
+          <div class="pix-content active">
+            <div class="pix-instructions">
+              <p>
+                Escaneie o QR Code com seu aplicativo do banco ou copie e cole o
+                código PIX abaixo
+              </p>
+            </div>
+
+            <div class="qr-code">
+              <img src="qrcode.png" alt="QR Code PIX" class="qr-image" />
+            </div>
+
+            <div class="pix-code">
+              <div class="pix-code-label">Código PIX</div>
+              <div class="pix-code-value">
+                00020126580014BR.GOV.BCB.PIX013638a3b123-4567-8901-2345-678901234567
+              </div>
+            </div>
+
+            <button class="copy-button" onclick="copyPixCode()">
+              Copiar Código PIX
+            </button>
+          </div>
+
+          <div class="card-content">
+            <form id="cardForm">
+              <div class="form-group">
+                <label class="form-label">Número do Cartão</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="0000 0000 0000 0000"
+                  maxlength="19"
+                  onkeyup="formatCardNumber(this)"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Nome no Cartão</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="Digite o nome como está no cartão"
+                />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Validade</label>
+                  <input
+                    type="text"
+                    class="form-input"
+                    placeholder="MM/AA"
+                    maxlength="5"
+                    onkeyup="formatExpiry(this)"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">CVV</label>
+                  <input
+                    type="password"
+                    class="form-input"
+                    placeholder="123"
+                    maxlength="4"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <button class="confirm-button" onclick="processPayment()">
+        Confirmar Pagamento
+      </button>
+    </div>
+
+    <script>
+      // Alternância entre métodos de pagamento
+      const methodOptions = document.querySelectorAll(".method-option");
+      const pixContent = document.querySelector(".pix-content");
+      const cardContent = document.querySelector(".card-content");
+
+      methodOptions.forEach((option) => {
+        option.addEventListener("click", () => {
+          // Remove active de todos
+          methodOptions.forEach((opt) => opt.classList.remove("active"));
+
+          // Adiciona active ao clicado
+          option.classList.add("active");
+
+          // Mostra conteúdo correspondente
+          const method = option.dataset.method;
+          if (method === "pix") {
+            pixContent.classList.add("active");
+            cardContent.classList.remove("active");
+          } else {
+            cardContent.classList.add("active");
+            pixContent.classList.remove("active");
+          }
+        });
+      });
+
+      // Função para copiar código PIX
+      function copyPixCode() {
+        const pixCode = document.querySelector(".pix-code-value").textContent;
+        navigator.clipboard.writeText(pixCode).then(() => {
+          const button = document.querySelector(".copy-button");
+          const originalText = button.textContent;
+          button.textContent = "Copiado!";
+          button.style.background = "#28a745";
+
+          setTimeout(() => {
+            button.textContent = originalText;
+            button.style.background = "var(--primary-orange)";
+          }, 2000);
+        });
+      }
+
+      // Formatação do número do cartão
+      function formatCardNumber(input) {
+        let value = input.value.replace(/\D/g, "");
+        value = value.replace(/(\d{4})(?=\d)/g, "$1 ");
+        input.value = value;
+      }
+
+      // Formatação da data de validade
+      function formatExpiry(input) {
+        let value = input.value.replace(/\D/g, "");
+        if (value.length >= 2) {
+          value = value.substring(0, 2) + "/" + value.substring(2, 4);
+        }
+        input.value = value;
+      }
+
+      // Processar pagamento
+      function processPayment() {
+        const activeMethod = document.querySelector(".method-option.active")
+          .dataset.method;
+        const button = document.querySelector(".confirm-button");
+
+        button.disabled = true;
+        button.textContent = "Processando...";
+
+        setTimeout(() => {
+          if (activeMethod === "pix") {
+            alert(
+              "Aguardando confirmação do PIX! Você será notificado quando o pagamento for confirmado."
+            );
+          } else {
+            alert("Pagamento aprovado! Transação realizada com sucesso.");
+          }
+
+          button.disabled = false;
+          button.textContent = "Confirmar Pagamento";
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>
