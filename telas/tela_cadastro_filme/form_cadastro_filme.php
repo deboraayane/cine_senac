@@ -32,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["poster"])) {
         $stmt->bind_param("ssssisss", $titulo, $classificacao, $genero, $subgenero, $duracao, $sinopse, $caminho_para_banco, $trailer);
 
         if ($stmt->execute()) {
+            header("Location: form_cadastro_filmes.html");
             echo "<p>🎉 Filme cadastrado com sucesso!</p>";
         } else {
             echo "<p>❌ Erro ao salvar no banco: " . $stmt->error . "</p>";
