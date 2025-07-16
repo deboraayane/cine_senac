@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cine Senac - Detalhes do Filme</title>
-    <link rel="stylesheet" href="css/global/global.css" />
-    <link rel="stylesheet" href="css/pages/pag_filme.css" />
-  </head>
 
-  <body>
-    <!-- Início da barra de navegação -->
-    <header class="navBar">
-      <div class="logo">
-        <img src="/img/logo-cine-senac.png" alt="" />
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cine Senac - Detalhes do Filme</title>
+  <link rel="stylesheet" href="css/global/global.css" />
+  <link rel="stylesheet" href="css/pages/pag_filme.css" />
+</head>
+
+<body>
+  <!-- Início da barra de navegação -->
+  <header class="navBar">
+    <div class="logo">
+      <img src="/img/logo-cine-senac.png" alt="Logo Cine Senac" />
+    </div>
+    <div class="hamburger" id="hamburger">&#9776;</div>
+    <div class="menu" id="menu">
       <nav class="paginas">
         <a href="/index.html">Início</a>
         <a href="/index.html#filmesEmCartaz">Filmes</a>
@@ -23,100 +26,105 @@
       <div class="perfil">
         <a href="/telas/tela_login/login.html">Login</a>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <main class="container">
-      <section class="top-section">
-        <div class="filme-escolha">
-          <img
-            src="https://acdn-us.mitiendanube.com/stores/004/687/740/products/pos-01744-7ee7fa554b354294de17181315528687-480-0.jpg"
-            alt="Poster do filme"
-          />
-        </div>
 
-        <div class="info-filme">
-          <h2 class="title-secondary">Título do Filme</h2>
-          <p><strong>Gênero:</strong> Ação, Aventura</p>
-          <p><strong>Duração:</strong> 2h 15min</p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat
-            culpa quibusdam in suscipit impedit dolor doloremque.
-          </p>
-        </div>
-      </section>
-
-      <section class="trailer">
-        <h3 class="title-secondary">Assista ao trailer</h3>
-        <iframe
-          width="100%"
-          height="400"
-          src="https://www.youtube.com/embed/6HsfXtgcAE4?si=DC6DaQM2BuwoAfql"
-          title="Trailer"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-        ></iframe>
-      </section>
-
-      <section class="schedule-section">
-        <h3 class="title-secondary">Horários</h3>
-
-        <div class="session">
-          <h4>2D</h4>
-          <p class="days-available">Dias disponíveis: Seg, Qua, Sex</p>
-          <div class="times">
-            <button>13:00</button>
-            <button>15:30</button>
-            <button>18:00</button>
-            <button>20:30</button>
-            <button>22:45</button>
-          </div>
-        </div>
-
-        <div class="session">
-          <h4>3D</h4>
-          <p class="days-available">Dias disponíveis: Ter, Qui, Sab</p>
-          <div class="times">
-            <button>14:00</button>
-            <button>16:30</button>
-            <button>19:00</button>
-            <button>21:30</button>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- Rodapé -->
-    <footer class="rodape">
-      <div class="logo">
-        <p>&copy; 2025 Cine Senac</p>
+  <main class="container">
+    <section class="top-section">
+      <div class="filme-escolha">
+        <img
+          src="https://acdn-us.mitiendanube.com/stores/004/687/740/products/pos-01744-7ee7fa554b354294de17181315528687-480-0.jpg"
+          alt="Poster do filme" />
       </div>
-      <div class="redesSociais">
-        <a href="https://www.facebook.com/SenacBahia/" target="_blank"
-          >Facebook</a
-        >
-        <a href="https://www.instagram.com/senacbahia/" target="_blank"
-          >Instagram</a
-        >
-        <a href="https://x.com/senacpituba" target="_blank">Twitter</a>
-      </div>
-      <div class="contato">
-        <p>Email: contato@cinesenac.com</p>
-        <p>Telefone: (75) 98336-6742</p>
-      </div>
-    </footer>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        document
-          .querySelectorAll(".schedule-section .times button")
-          .forEach((button) => {
-            button.addEventListener("click", () => {
-              alert(`Você selecionou o horário das ${button.textContent}`);
-            });
+      <div class="info-filme">
+        <h2 class="title-secondary">Título do Filme</h2>
+        <p><strong>Gênero:</strong> Ação, Aventura</p>
+        <p><strong>Duração:</strong> 2h 15min</p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat
+          culpa quibusdam in suscipit impedit dolor doloremque.
+        </p>
+      </div>
+    </section>
+
+    <section class="trailer">
+      <h3 class="title-secondary">Assista ao trailer</h3>
+      <iframe width="100%" height="400" src="https://www.youtube.com/embed/6HsfXtgcAE4?si=DC6DaQM2BuwoAfql"
+        title="Trailer" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </section>
+
+    <section class="schedule-section">
+      <h3 class="title-secondary">Horários</h3>
+
+      <div class="session">
+        <h4>2D</h4>
+        <p class="days-available">Dias disponíveis: Seg, Qua, Sex</p>
+        <div class="times">
+          <button>13:00</button>
+          <button>15:30</button>
+          <button>18:00</button>
+          <button>20:30</button>
+          <button>22:45</button>
+        </div>
+      </div>
+
+      <div class="session">
+        <h4>3D</h4>
+        <p class="days-available">Dias disponíveis: Ter, Qui, Sab</p>
+        <div class="times">
+          <button>14:00</button>
+          <button>16:30</button>
+          <button>19:00</button>
+          <button>21:30</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="rodape">
+    <div class="logo">
+      <p>&copy; 2025 Cine Senac</p>
+    </div>
+    <div class="redesSociais">
+      <a href="https://www.facebook.com/SenacBahia/" target="_blank">Facebook</a>
+      <a href="https://www.instagram.com/senacbahia/" target="_blank">Instagram</a>
+      <a href="https://x.com/senacpituba" target="_blank">Twitter</a>
+    </div>
+    <div class="contato">
+      <p>Email: contato@cinesenac.com</p>
+      <p>Telefone: (75) 98336-6742</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document
+        .querySelectorAll(".schedule-section .times button")
+        .forEach((button) => {
+          button.addEventListener("click", () => {
+            alert(`Você selecionou o horário das ${button.textContent}`);
           });
+        });
+    });
+
+    // === HAMBÚRGUER ===
+    document.addEventListener('DOMContentLoaded', function () {
+      const hamburger = document.querySelector('.hamburger');
+      const menu = document.querySelector('.menu');
+
+      hamburger.addEventListener('click', function () {
+        menu.classList.toggle('active');
       });
-    </script>
-  </body>
+    });
+  </script>
+
+  <script src="/js/navbar.js"></script>
+
+</body>
+
 </html>
