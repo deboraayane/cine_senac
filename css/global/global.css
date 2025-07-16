@@ -1,7 +1,7 @@
-@import "includes/font.css";
-@import "includes/header.css";
-@import "includes/footer.css";
-@import "pages/pag_inicial.css";
+@import "/includes/font.css";
+@import "/includes/header.css";
+@import "/includes/footer.css";
+@import "/pages/pag_inicial.css";
 
 html {
   scroll-behavior: smooth;
