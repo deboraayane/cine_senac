@@ -10,7 +10,7 @@
     <!-- Início da barra de navegação -->
     <header class="navBar">
       <div class="logo">
-        <img src="img/logo-cine-senac.png" alt="" />
+        <img src="/img/logo-cine-senac.png" alt="" />
       </div>
       <nav class="paginas">
         <a href="/index.html">Início</a>
@@ -19,7 +19,7 @@
         <a href="https://wa.me/5575983236764" target="_blank">Contato</a>
       </nav>
       <div class="perfil">
-        <a href="telas/tela_login/login.html">Login</a>
+        <a href="/telas/tela_login/login.html">Login</a>
       </div>
     </header>
 
@@ -28,9 +28,9 @@
       <section class="carrossel container">
         <h2>Em Destaque</h2>
         <div class="banner">
-          <img src="img/pag_inicial/verde.png" alt="Banner 1" />
-          <img src="img/pag_inicial/amarelo.png" alt="Banner 2" />
-          <img src="img/pag_inicial/vermelho.png" alt="Banner 3" />
+          <img src="/img/pag_inicial/verde.png" alt="Banner 1" />
+          <img src="/img/pag_inicial/amarelo.png" alt="Banner 2" />
+          <img src="/img/pag_inicial/vermelho.png" alt="Banner 3" />
         </div>
         <div id="filmesEmCartaz"></div>
       </section>
@@ -121,37 +121,55 @@
       <div class="logo">
         <p>&copy; 2025 Cine Senac</p>
       </div>
-      <div class="redesSociais">
-        <a href="https://www.facebook.com/SenacBahia/" target="_blank"
-          >Facebook</a
-        >
-        <a href="https://www.instagram.com/senacbahia/" target="_blank"
-          >Instagram</a
-        >
-        <a href="https://x.com/senacpituba" target="_blank">Twitter</a>
-      </div>
-      <div class="contato">
-        <p>Email: contato@cinesenac.com</p>
-        <p>Telefone: (75) 98336-6742</p>
-      </div>
-    </footer>
-  </body>
-  <script>
-    let index = 0;
-    const images = document.querySelectorAll(".banner img");
+    </section>
+  </main>
 
-    function showSlide() {
-      images.forEach((img, i) => {
-        img.classList.remove("active");
-        if (i === index) {
-          img.classList.add("active");
-        }
-      });
+  <!-- Rodapé -->
+  <footer class="rodape container">
+    <div class="logo">
+      <p>&copy; 2025 Cine Senac</p>
+    </div>
+    <div class="redesSociais">
+      <a href="https://www.facebook.com/SenacBahia/" target="_blank">Facebook</a>
+      <a href="https://www.instagram.com/senacbahia/" target="_blank">Instagram</a>
+      <a href="https://x.com/senacpituba" target="_blank">Twitter</a>
+    </div>
+    <div class="contato">
+      <p>Email: contato@cinesenac.com</p>
+      <p>Telefone: (75) 98336-6742</p>
+    </div>
+  </footer>
+</body>
+<script>
+  let index = 0;
+  const images = document.querySelectorAll(".banner img");
 
-      index = (index + 1) % images.length;
-    }
+  function showSlide() {
+    images.forEach((img, i) => {
+      img.classList.remove("active");
+      if (i === index) {
+        img.classList.add("active");
+      }
+    });
 
-    showSlide(); // mostra a primeira imagem
-    setInterval(showSlide, 4000); // troca a cada 4 segundos
-  </script>
+    index = (index + 1) % images.length;
+  }
+
+  showSlide(); // mostra a primeira imagem
+  setInterval(showSlide, 4000); // troca a cada 4 segundos
+
+  // === HAMBÚRGUER ===
+  document.addEventListener('DOMContentLoaded', function () {
+    const hamburger = document.querySelector('.hamburger');
+    const menu = document.querySelector('.menu');
+
+    hamburger.addEventListener('click', function () {
+      menu.classList.toggle('active');
+    });
+  });
+</script>
+
+<script src="/js/navbar.js"></script>
+
+
 </html>

@@ -1,60 +1,46 @@
 /* ===== VARIÁVEIS DE COR ===== */
 :root {
-  /* Cores principais */
   --primary-orange: #ff8c5a;
   --primary-orange-light: #ffab7a;
   --primary-orange-dark: #ff6b35;
   --primary-orange-hover: #ff9d6b;
 
-  /* Cinzas */
   --dark-gray: #2a2a2a;
   --medium-gray: #3a3a3a;
   --light-gray: #404040;
   --text-gray: #b3b3b3;
   --text-light: #ffffff;
 
-  /* Transparências */
   --orange-alpha-10: rgba(255, 140, 90, 0.1);
   --orange-alpha-20: rgba(255, 140, 90, 0.2);
 
-  /* Sombras */
   --shadow-header: 0 2px 10px rgba(0, 0, 0, 0.3);
   --shadow-glow: 0 0 20px rgba(255, 140, 90, 0.3);
 
-  /* Transições */
   --transition-fast: 0.3s ease;
   --transition-glow: 0.4s ease;
 }
 
-/* ===== HEADER NAVBAR (ESPECÍFICO) ===== */
+/* ===== NAVBAR GERAL ===== */
 .navBar {
-  background: linear-gradient(
-    135deg,
-    var(--dark-gray) 0%,
-    var(--medium-gray) 100%
-  );
+  background: linear-gradient(135deg, var(--dark-gray), var(--medium-gray));
   border-bottom: 2px solid var(--primary-orange);
   box-shadow: var(--shadow-header);
   padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  backdrop-filter: blur(10px);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 80px;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000; /* para garantir que fique sobre outros elementos */
-  /* demais estilos */
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(10px);
 }
 
-/* ===== LOGO - imagem ===== */
+/* ===== LOGO ===== */
 .navBar .logo img {
-  height: 50px; /* controla a altura da logo */
+  height: 50px;
   width: auto;
   object-fit: contain;
   cursor: pointer;
@@ -66,26 +52,13 @@
   transform: scale(1.05);
 }
 
-/* ===== LOGO - fallback texto ===== */
-.navBar .logo h1 {
-  color: var(--primary-orange);
-  font-size: 2rem;
-  font-weight: 700;
-  text-shadow: 0 0 10px var(--orange-alpha-20);
-  letter-spacing: -0.5px;
-  cursor: pointer;
-  transition: all var(--transition-glow);
-  margin: 0;
-  user-select: none;
+/* ===== MENU E LINKS ===== */
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
 
-.navBar .logo h1:hover {
-  color: var(--primary-orange-light);
-  text-shadow: var(--shadow-glow);
-  transform: scale(1.05);
-}
-
-/* ===== NAVEGAÇÃO PÁGINAS ===== */
 .navBar .paginas {
   display: flex;
   gap: 2.5rem;
@@ -111,11 +84,7 @@
   left: 50%;
   width: 0;
   height: 2px;
-  background: linear-gradient(
-    90deg,
-    var(--primary-orange),
-    var(--primary-orange-light)
-  );
+  background: linear-gradient(90deg, var(--primary-orange), var(--primary-orange-light));
   transition: all var(--transition-fast);
   transform: translateX(-50%);
 }
@@ -130,11 +99,6 @@
   width: 100%;
 }
 
-.navBar .paginas a:active {
-  transform: translateY(0);
-}
-
-/* ===== PERFIL/LOGIN ===== */
 .navBar .perfil a {
   color: var(--text-light);
   text-decoration: none;
@@ -145,8 +109,6 @@
   border-radius: 25px;
   background: transparent;
   transition: all var(--transition-fast);
-  position: relative;
-  display: inline-block;
 }
 
 .navBar .perfil a:hover {
@@ -156,7 +118,15 @@
   box-shadow: 0 5px 15px var(--orange-alpha-20);
 }
 
-/* ===== RESPONSIVIDADE ===== */
+/* ===== MENU HAMBÚRGUER ===== */
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+/* ===== RESPONSIVO (1024px) ===== */
 @media (max-width: 1024px) {
   .navBar {
     padding: 1rem 1.5rem;
@@ -180,42 +150,61 @@
   }
 }
 
+/* ===== RESPONSIVO (768px) ===== */
 @media (max-width: 768px) {
   .navBar {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     padding: 1rem;
-    min-height: auto;
-    gap: 1rem;
+    position: relative;
   }
 
   .navBar .logo {
     width: 100%;
     text-align: center;
-  }
-
-  .navBar .paginas {
-    width: 100%;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .navBar .paginas a {
-    font-size: 0.95rem;
-    padding: 0.5rem 1rem;
-  }
-
-  .navBar .perfil {
-    width: 100%;
-    text-align: center;
+    z-index: 2;
   }
 
   .navBar .logo img {
     height: 40px;
+    display: inline-block;
   }
 
-  .navBar .logo h1 {
-    font-size: 1.6rem;
+  .hamburger {
+    display: block;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--medium-gray);
+    padding: 1rem 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+  }
+
+  .menu.active {
+    display: flex;
+  }
+
+  .paginas {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .perfil {
+    text-align: center;
+    margin-top: 1rem;
   }
 
   .navBar .perfil a {
@@ -224,27 +213,19 @@
   }
 }
 
+/* ===== RESPONSIVO (480px) ===== */
 @media (max-width: 480px) {
   .navBar {
     padding: 0.75rem;
-  }
-
-  .navBar .paginas {
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .navBar .paginas a {
-    font-size: 0.9rem;
-    padding: 0.4rem 0.8rem;
   }
 
   .navBar .logo img {
     height: 35px;
   }
 
-  .navBar .logo h1 {
-    font-size: 1.4rem;
+  .navBar .paginas a {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
   }
 
   .navBar .perfil a {
@@ -253,7 +234,7 @@
   }
 }
 
-/* ===== EFEITOS ESPECIAIS ===== */
+/* ===== EFEITOS ===== */
 .navBar:hover {
   border-bottom-color: var(--primary-orange-light);
 }
