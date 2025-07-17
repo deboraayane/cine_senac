@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_FILES["poster"])) {
         $caminho_para_banco = "img/filme/" . $nome_arquivo;
 
         // Inserção no banco
-        $stmt = $conexao->prepare("INSERT INTO filme (titulo, classificacao_indicativa, genero, sub_genero, duracao_min, sinopse, poster, trailer)
+        $stmt = $conexao->prepare("INSERT INTO filme (titulo, classificacao_indicativa, genero, sub_genero, duracao, sinopse, poster, trailer)
                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssisss", $titulo, $classificacao, $genero, $subgenero, $duracao, $sinopse, $caminho_para_banco, $trailer);
 

@@ -1,5 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+<<<<<<< HEAD:telas/tela_detalhe_filme/tela_detalhe_filme.html
+=======
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cine Senac - Detalhes do Filme</title>
+    <link rel="stylesheet" href="/css/global/global.css" />
+    <link rel="stylesheet" href="/css/pages/pag_filme.css" />
+  </head>
+>>>>>>> 63ce74a5633037338de83773db35712759a8bd3a:telas/tela_detalhe_filme/tela_detalhe_filme.php
 
 <head>
   <meta charset="UTF-8" />
@@ -18,8 +28,8 @@
     <div class="hamburger" id="hamburger">&#9776;</div>
     <div class="menu" id="menu">
       <nav class="paginas">
-        <a href="/index.html">Início</a>
-        <a href="/index.html#filmesEmCartaz">Filmes</a>
+        <a href="/index.php">Início</a>
+        <a href="/index.php#filmesEmCartaz">Filmes</a>
         <a href="#">Promoções</a>
         <a href="https://wa.me/5575983236764" target="_blank">Contato</a>
       </nav>

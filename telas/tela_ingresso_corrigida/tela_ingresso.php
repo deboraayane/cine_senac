@@ -18,8 +18,8 @@
         <img src="/img/logo-cine-senac.png" alt="" />
       </div>
       <nav class="paginas">
-        <a href="/index.html">Início</a>
-        <a href="/index.html#filmesEmCartaz">Filmes</a>
+        <a href="/index.php">Início</a>
+        <a href="/index.php#filmesEmCartaz">Filmes</a>
         <a href="#">Promoções</a>
         <a href="https://wa.me/5575983236764" target="_blank">Contato</a>
       </nav>
