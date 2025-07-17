@@ -35,75 +35,6 @@
         <div id="filmesEmCartaz"></div>
       </section>
 
-<<<<<<< HEAD:index.html
-    <!-- Seção dos cartazes dos filmes -->
-    <section class="cartaz container">
-      <h2>Filmes em Cartaz</h2>
-      <div class="filmes">
-        <!-- Repetição dos filmes -->
-        <a href="filme.html">
-          <div class="filme">
-            <img src="https://assets.cine3.com.br/vibezz_15525517.png" alt="Filme 1" />
-            <p>Filme 1</p>
-          </div>
-        </a>
-        <a href="filme.html">
-          <div class="filme">
-            <img
-              src="https://www.cinemark.com.br/_next/image?url=https%3A%2F%2Fcdnim.prd.cineticket.com.br%2Fimages%2Fcms%2FmoviePoster%2FMoviePoster-85f6e75d-c26c-44a0-9a70-d47f5999fa54.png&w=1920&q=100"
-              alt="Filme 2" />
-            <p>Filme 2</p>
-          </div>
-        </a>
-        <a href="filme.html">
-          <div class="filme">
-            <img
-              src="https://acdn-us.mitiendanube.com/stores/004/687/740/products/pos-01744-7ee7fa554b354294de17181315528687-480-0.jpg"
-              alt="Filme 3" />
-            <p>Filme 3</p>
-          </div>
-        </a>
-        <a href="filme.html">
-          <div class="filme">
-            <img
-              src="https://acdn-us.mitiendanube.com/stores/004/687/740/products/pos-01744-7ee7fa554b354294de17181315528687-480-0.jpg"
-              alt="Filme 4" />
-            <p>Filme 4</p>
-          </div>
-        </a>
-        <a href="filme.html">
-          <div class="filme">
-            <img
-              src="https://acdn-us.mitiendanube.com/stores/004/687/740/products/pos-01744-7ee7fa554b354294de17181315528687-480-0.jpg"
-              alt="Filme 5" />
-            <p>Filme 5</p>
-          </div>
-        </a>
-        <a href="filme.html">
-          <div class="filme">
-            <img
-              src="https://acdn-us.mitiendanube.com/stores/004/687/740/products/pos-01744-7ee7fa554b354294de17181315528687-480-0.jpg"
-              alt="Filme 6" />
-            <p>Filme 6</p>
-          </div>
-        </a>
-        <a href="filme.html">
-          <div class="filme">
-            <img
-              src="https://acdn-us.mitiendanube.com/stores/004/687/740/products/pos-01744-7ee7fa554b354294de17181315528687-480-0.jpg"
-              alt="Filme 7" />
-            <p>Filme 7</p>
-          </div>
-        </a>
-        <a href="filme.html">
-          <div class="filme">
-            <img
-              src="https://acdn-us.mitiendanube.com/stores/004/687/740/products/pos-01744-7ee7fa554b354294de17181315528687-480-0.jpg"
-              alt="Filme 8" />
-            <p>Filme 8</p>
-          </div>
-        </a>
-=======
       <!-- Seção dos cartazes dos filmes -->
       <section class="cartaz container">
         <h2>Filmes em Cartaz</h2>
@@ -189,7 +120,6 @@
     <footer class="rodape container">
       <div class="logo">
         <p>&copy; 2025 Cine Senac</p>
->>>>>>> 63ce74a5633037338de83773db35712759a8bd3a:index.php
       </div>
     </section>
   </main>
