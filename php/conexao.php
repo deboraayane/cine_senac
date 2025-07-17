@@ -1,8 +1,8 @@
 <?php
 
 $host = "localhost";
-$usuario = "GB_database";
-$senha_db = "0803";
+$usuario = "root";
+$senha_db = "";
 $db = "cine_senac";
 
 $conexao = mysqli_connect($host, $usuario, $senha_db, $db);
