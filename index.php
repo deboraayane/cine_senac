@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cine Senac</title>
-    <link rel="stylesheet" href="css/global/global.css" />
+    <link rel="stylesheet" href="/css/global/global.css" />
   </head>
   <body>
     <!-- Início da barra de navegação -->
@@ -40,7 +40,7 @@
         <h2>Filmes em Cartaz</h2>
         <div class="filmes">
           <!-- Repetição dos filmes -->
-          <a href="telas\tela_detalhe_filme\tela_detalhe_filme.php">
+          <a href="/telas/tela_detalhe_filme/tela_detalhe_filme.php">
             <div class="filme">
               <img
                 src="https://assets.cine3.com.br/vibezz_15525517.png"
