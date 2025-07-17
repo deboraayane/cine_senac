@@ -1,0 +1,240 @@
+/* === LAYOUT DOS BOTÕES ADMINISTRATIVOS === */
+.botoes-admin {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* ESPAÇO ENTRE OS BOTÕES */
+  max-width: 300px; /* OPCIONAL, CONTROLA A LARGURA */
+  margin-bottom: 30px; /* ESPAÇO ABAIXO DOS BOTÕES */
+}
+
+.botoes-admin button {
+  width: 100%; /* BOTÃO OCUPA TODA A LARGURA DO CONTAINER */
+}
+
+/* === ESTILO GLOBAL === */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f2f2f2;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #e6762f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* === MODAL === */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#modalFilme {
+  z-index: 2000; /* maior que o modalVerfilmes */
+}
+
+#modalVerfilmes {
+  z-index: 1000;
+}
+
+
+.modal-conteudo {
+  background-color: #fff;
+  margin: 5% auto 15% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.fechar {
+  color: #aaa;
+  font-size: 28px;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+}
+
+.fechar:hover {
+  color: #000;
+}
+
+/* === FORMULÁRIO === */
+form {
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: auto;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.select-wrapper select {
+  width: 100%;
+  height: 42px;
+  padding: 10px;
+  padding-right: 30px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.select-wrapper::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  right: 15px;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #333;
+  transform: translateY(-50%);
+}
+
+input[type="text"],
+input[type="number"],
+input[type="url"],
+input[type="file"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input[type="submit"] {
+  background-color: #ff8c42;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+input[type="submit"]:hover {
+  background-color: #e6762f;
+  transform: translateY(-2px);
+}
+
+/* === CUSTOM MULTISELECT === */
+.custom-multiselect {
+  position: relative;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.custom-multiselect .select-box {
+  position: relative;
+  width: 100%;
+  height: 42px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #fff;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.custom-multiselect .select-box::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  right: 15px;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #333;
+  transform: translateY(-50%);
+}
+
+.arrow {
+  /* OCULTO, PODE USAR SE QUISER MOSTRAR SETA */
+  display: none;
+}
+
+#selected {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* === DROPDOWN DAS CHECKBOXES === */
+.checkboxes {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 100;
+  box-sizing: border-box;
+}
+
+.checkboxes label {
+  display: block;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.checkboxes label:hover {
+  background-color: #f4f4f4;
+}
