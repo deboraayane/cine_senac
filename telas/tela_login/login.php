@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($usuario = mysqli_fetch_assoc($resultado)) {
         if (password_verify($senha_login, $usuario['senha_hash'])) {
-            header("Location: /pag_inicial.html");
+            header("Location: /index.html");
             exit;
         }
     }
