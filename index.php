@@ -116,14 +116,6 @@
       </section>
     </main>
 
-    <!-- Rodapé -->
-    <footer class="rodape container">
-      <div class="logo">
-        <p>&copy; 2025 Cine Senac</p>
-      </div>
-    </section>
-  </main>
-
   <!-- Rodapé -->
   <footer class="rodape container">
     <div class="logo">
