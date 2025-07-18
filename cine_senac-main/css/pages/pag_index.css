@@ -1,0 +1,126 @@
+/* Reset e base */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* aqui evita rolagem lateral */
+  font-family: sans-serif;
+  background-color: var(--dark-gray);
+  color: var(--text-light);
+}
+
+main {
+  padding: 2rem 1rem;
+}
+
+/* Carrossel */
+.carrossel {
+  margin-bottom: 3rem;
+}
+
+.carrossel h2 {
+  font-size: 2rem;
+  color: var(--primary-orange);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.banner {
+  position: relative;
+  width: 100%;
+  max-width: 1072px;
+  aspect-ratio: 3 / 1;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: var(--shadow-glow);
+  background-color: var(--medium-gray);
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  display: none;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: opacity var(--transition-fast);
+}
+
+.banner img.active {
+  display: block;
+}
+
+/* Filmes em cartaz */
+.cartaz h2 {
+  font-size: 2rem;
+  color: var(--primary-orange);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.filmes {
+  display: grid;
+  gap: 4rem;
+  justify-content: center; /* centraliza os cards */
+  max-width: 1072px; /* limita para evitar overflow */
+  margin: 0 auto; /* centraliza o grid dentro do container */
+  padding: 0 1rem; /* evita que encoste na borda da tela */
+}
+
+/* Desktop - 4 filmes por linha */
+@media (min-width: 1024px) {
+  .filmes {
+    grid-template-columns: repeat(4, 220px);
+  }
+}
+
+/* Tela média - 2 a 3 por linha */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .filmes {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 220px));
+  }
+}
+
+/* Telas pequenas - 1 por linha */
+@media (max-width: 599px) {
+  .filmes {
+    grid-template-columns: 1fr;
+  }
+}
+
+.filme {
+  background-color: var(--light-gray);
+  border-radius: 10px;
+  padding: 0.75rem;
+  text-align: center;
+  transition: transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+  box-shadow: var(--shadow-header);
+  max-width: 220px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.filme:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.filme img {
+  width: 100%;
+  aspect-ratio: 27 / 40; /* força proporção 4:3 */
+  object-fit: cover; /* corta e ajusta para cobrir o espaço */
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.filme p {
+  color: var(--primary-orange-light);
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 0.5rem 0 0;
+}
