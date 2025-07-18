@@ -23,6 +23,7 @@ main {
 }
 
 .carrossel h2 {
+  padding-top: 100px;
   font-size: 2rem;
   color: var(--primary-orange);
   margin-bottom: 1.5rem;
@@ -39,10 +40,7 @@ main {
   border-radius: 12px;
   box-shadow: var(--shadow-glow);
   background-color: var(--medium-gray);
-  padding-top: 50px;
   border: none;
- 
-  
 }
 
 .banner img {
