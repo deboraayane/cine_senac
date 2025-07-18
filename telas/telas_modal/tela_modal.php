@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -25,7 +24,7 @@
         <div class="modal-conteudo">
             <span class="fechar fechar-filme">&times;</span>
             <h1 id="titulo-modal-filme">Cadastro de Filmes</h1>
-            <form method="post" action="http://localhost/PROJETO/form_cadastro_filmes.php" enctype="multipart/form-data"
+            <form method="post" action="http://localhost/telas/tela_cadastro_filme/form_cadastro_filme.php" enctype="multipart/form-data"
                 id="form-filme">
                 <label>
                     Título:
