@@ -10,7 +10,8 @@
     <!-- Início da barra de navegação -->
     <header class="navBar">
       <div class="logo">
-        <img src="/img/logo-cine-senac.png" alt="" />
+        <a href="/telas/telas_modal/tela_modal.php">
+          <img src="/img/logo-cine-senac.png" alt="" /></a>
       </div>
       <nav class="paginas">
         <a href="/index.php">Início</a>
@@ -115,14 +116,6 @@
         </div>
       </section>
     </main>
-
-    <!-- Rodapé -->
-    <footer class="rodape container">
-      <div class="logo">
-        <p>&copy; 2025 Cine Senac</p>
-      </div>
-    </section>
-  </main>
 
   <!-- Rodapé -->
   <footer class="rodape container">
