@@ -157,21 +157,16 @@
 /* ===== RESPONSIVO (≤ 768px) ===== */
 @media (max-width: 768px) {
   .navBar {
+    flex-wrap: wrap;
     justify-content: space-between;
     padding: 1rem;
   }
 
-  .navContent {
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0;
-  }
-
   .logo {
     order: 1;
-    text-align: left;
+    text-align: center;
+    margin: 0 auto;
+    width: 50%;
   }
 
   .hamburger {
@@ -204,29 +199,41 @@
     margin-top: 1rem;
     position: static;
     text-align: center;
-  }
 }
-
+}
 /* ===== RESPONSIVO (480px) ===== */
+/*Nav bar atualizada e funcional pagina home*/
 @media (max-width: 480px) {
   .navBar {
-    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
   }
 
-  .navBar .logo img {
+  .hamburger {
+    font-size: 2.5rem;
+    color: var(--text-light);
+    cursor: pointer;
+    margin-left: auto;
+  }
+
+  .logo {
+    position: absolute;
+    left: 10%;
+    transform: translateX(-50%);
+    z-index: 1;
+    margin-left: 17px;
+    top: 5px;
+  }
+
+  .logo img {
     height: 35px;
   }
-
-  .paginas a {
-    font-size: 0.9rem;
-    padding: 0.4rem 0.8rem;
-  }
-
-  .perfil a {
-    padding: 0.5rem 1.2rem;
-    font-size: 0.85rem;
-  }
 }
+
+
+
 
 /* ===== EFEITOS ===== */
 .navBar:hover {
