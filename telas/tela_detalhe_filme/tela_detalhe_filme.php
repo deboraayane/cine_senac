@@ -11,7 +11,8 @@ session_start();
   <link rel="icon" href="/img/favicon.png" type="image/png" />
   <title>Cine Senac - Detalhes do Filme</title>
   <link rel="stylesheet" href="/css/global/global.css" />
-  <link rel="stylesheet" href="/css/pages/pag_filme.css" /> <link rel="stylesheet" href="/css/pages/pag_detalhe_filme.css"/>
+  <link rel="stylesheet" href="/css/pages/pag_filme.css" />
+  <link rel="stylesheet" href="/css/pages/pag_detalhe_filme.css" />
 </head>
 
 <body>
@@ -65,9 +66,9 @@ session_start();
     </div>
 
     <div class="hamburger">&#9776;</div>
-    
+
     <div class="paginas">
-      <nav >
+      <nav>
         <a href="/index.php">Início</a>
         <a href="#filmesEmCartaz">Filmes</a>
         <a href="#">Promoções</a>
@@ -86,7 +87,7 @@ session_start();
           <a href="/telas/tela_login/login.html">Login</a>
         <?php endif; ?>
       </div>
-        </div>
+    </div>
 
   </header>
 
@@ -95,11 +96,10 @@ session_start();
       <br><br><br>
 
 
-     <div class="filme-escolha">
+      <div class="filme-escolha">
         <img
           src="/img/posters/<?php echo htmlspecialchars($filme['poster']); ?>"
-          alt="Pôster do filme: <?php echo htmlspecialchars($filme['titulo']); ?>"
-        />
+          alt="Pôster do filme: <?php echo htmlspecialchars($filme['titulo']); ?>" />
       </div>
 
       <div class="info-filme">
@@ -110,20 +110,14 @@ session_start();
           <?php echo htmlspecialchars($filme['sinopse']); ?>
         </p>
         <div>
-          <button style="
-    background-color: #2a2a2a;
-    border: groove 2px #ff8c5a;
-    border-radius: 6px;
-    padding: 5px 10px;
-    display: inline-flex;
-    align-items: center;
-  ">
-            <a href="https://wa.me/?text=VI%20ESSE%20FILME%20NO%20CINE%20SENAC%20BORA%20ASSISTIR%3F"
-              style="color: white; text-decoration: none; display: inline-flex; align-items: center;">
-              <b style="margin-right: 5px;">Compartilhar</b>
-              <img src="/img/whatsapp.png" alt="whatsapp" height="20" /> </a>
+          <button class="btn-whatsapp">
+            <a href="https://wa.me/?text=VI%20ESSE%20FILME%20NO%20CINE%20SENAC%20BORA%20ASSISTIR%3F" target="_blank" rel="noopener noreferrer">
+              <span>Compartilhar</span>
+              <img src="/img/whatsapp.png" alt="WhatsApp" />
+            </a>
           </button>
         </div>
+
       </div>
     </section>
 
@@ -143,17 +137,15 @@ session_start();
       <h3 class="title-secondary">Horários</h3>
 
 
-       <div class="session">
+      <div class="session">
         <h4>2D</h4>
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:25px;">
           <button id="btnAnterior-2d"
-          style="padding:6px 45px;background:#2a2a2a;color:white;border:none;border-radius:5px;cursor:pointer;"
-          >←
+            style="padding:6px 45px;background:#2a2a2a;color:white;border:none;border-radius:5px;cursor:pointer;">←
             Anterior</button>
           <h3 id="mesAnoAtual-2d" style="margin: 5px;"></h3>
           <button id="btnProximo-2d"
-          style="padding:6px 45px;background:#2a2a2a;color:white;border:none;border-radius:5px;cursor:pointer;"
-          >Próximo
+            style="padding:6px 45px;background:#2a2a2a;color:white;border:none;border-radius:5px;cursor:pointer;">Próximo
             →</button>
         </div>
         <div id="calendario-2d"></div>
@@ -166,13 +158,11 @@ session_start();
         <h4>3D</h4>
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:25px;">
           <button id="btnAnterior-3d"
-          style="padding:6px 45px;background:#2a2a2a;color:white;border:none;border-radius:5px;cursor:pointer;"
-          >←
+            style="padding:6px 45px;background:#2a2a2a;color:white;border:none;border-radius:5px;cursor:pointer;">←
             Anterior</button>
           <h3 id="mesAnoAtual-3d" style="margin:5px;"></h3>
           <button id="btnProximo-3d"
-          style="padding:6px 45px;background:#2a2a2a;color:white;border:none;border-radius:5px;cursor:pointer;"
-          >Próximo
+            style="padding:6px 45px;background:#2a2a2a;color:white;border:none;border-radius:5px;cursor:pointer;">Próximo
             →</button>
         </div>
         <div id="calendario-3d"></div>
@@ -328,7 +318,7 @@ session_start();
     }
 
     criarCalendario('2D', 'calendario-2d', 'info-2d', 'horarios-2d', sessoes2D, 'mesAnoAtual-2d', 'btnAnterior-2d', 'btnProximo-2d');
-    
+
     criarCalendario('3D', 'calendario-3d', 'info-3d', 'horarios-3d', sessoes3D, 'mesAnoAtual-3d', 'btnAnterior-3d', 'btnProximo-3d');
 
     function selecionarFilme(filme) {

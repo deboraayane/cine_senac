@@ -1,51 +1,29 @@
-.schedule-section {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    padding: 20px;
-  }
+.btn-whatsapp {
+  background-color: #2a2a2a;
+  border: 2px groove #ff8c5a;
+  border-radius: 6px;
+  padding: 5px 10px;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  max-width: 180px;
+  box-sizing: border-box;
+  font-weight: bold;
+  font-size: 1em;
+}
 
-  .title-secondary {
-    grid-column: 1 / -1;
-    margin: 0 0 20px;
-    font-size: 1.5em;
-    text-align: center;
-  }
+.btn-whatsapp a {
+  color: white;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-  .session {
-    background: #444;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-
-  .session h4 {
-    margin-top: 0;
-    color:#fff;
-    text-align: center;
-  }
-
-  .controls {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-  }
-
-  .controls button {
-    padding: 6px 12px;
-    background: #000000;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  #horarios-2d,
-  #horarios-3d {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    text-align: center;
-   
-  }
+.btn-whatsapp img {
+  height: 25px;
+  width: auto;
+  display: block;
+}
