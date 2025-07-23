@@ -162,48 +162,117 @@
     --text-accent: #ff8c5a; /* Seu laranja principal */
 }
 
-/* Responsividade */
+.navBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background-color: var(--dark-gray, #121212);
+  position: relative;
+  z-index: 10;
+}
+
+.navBar .logo img {
+  height: 50px;
+}
+
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
+
+.paginas {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.paginas a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.paginas .perfil {
+  margin-left: 1rem;
+}
+
+/* ===== RESPONSIVO (≤ 768px) ===== */
 @media (max-width: 768px) {
-    .title-primary {
-        font-size: 2em;
-        margin-bottom: 30px;
-    }
+  .navBar {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1rem;
+  }
 
-    .top-sections-wrapper {
-        flex-direction: column; /* Empilha as seções em telas menores */
-        gap: 20px; /* Espaçamento entre as seções empilhadas */
-    }
+  .logo {
+    order: 1;
+    text-align: center;
+    margin: 0 auto;
+    width: 50%;
+  }
 
-    .top-sections-wrapper .section-card {
-        min-width: unset; /* Remove min-width em mobile */
-        width: 100%; /* Ocupa a largura total */
-    }
+  .hamburger {
+    display: block;
+    order: 2;
+    position: static;
+    transform: none;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 3;
+  }
 
-    .section-card {
-        padding: 20px;
-        margin-bottom: 0; /* Gerenciado pelo gap do wrapper */
-    }
+  .paginas {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--medium-gray);
+    padding: 1rem 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+  }
 
-    .section-card .title-secondary {
-        font-size: 1.5em;
-        margin-bottom: 15px;
-    }
+  .paginas.active {
+    display: flex;
+  }
 
-    .contact-grid {
-        flex-direction: column; /* Empilha os itens de contato */
-        gap: 20px;
-    }
+  .perfil {
+    margin-top: 1rem;
+    position: static;
+    text-align: center;
+}
+}
+/* ===== RESPONSIVO (480px) ===== */
+/*Nav bar atualizada e funcional pagina home*/
+@media (max-width: 480px) {
+  .navBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+  }
 
-    .contact-item {
-        max-width: 100%; /* Ocupa a largura total */
-    }
+  .hamburger {
+    font-size: 2.5rem;
+    color: var(--text-light);
+    cursor: pointer;
+    margin-left: auto;
+  }
 
-    .map-container {
-        padding-bottom: 75%; /* Proporção 4:3 para telas menores */
-    }
+  .logo {
+    position: absolute;
+    left: 10%;
+    transform: translateX(-50%);
+    z-index: 1;
+    margin-left: 17px;
+    top: 5px;
+  }
 
-    .location-info .title-secondary,
-    .location-info p {
-        padding: 0 15px; /* Ajusta padding para mobile */
-    }
+  .logo img {
+    height: 35px;
+  }
 }

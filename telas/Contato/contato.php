@@ -17,18 +17,17 @@ session_start();
 <body>
   <header class="navBar">
     <div class="logo">
-      <a href="/index.php">
-        <img src="/img/logo-cine-senac.png" alt="CineSenac" />
-      </a>
+      <img src="/img/logo-cine-senac.png" alt="CineSenac" />
     </div>
-    <div class="hamburger" id="hamburger">☰</div>
-    <div class="menu" id="menu">
-      <nav class="paginas">
-        <a href="/index.php">Início</a>
-        <a href="/index.php#filmesEmCartaz">Filmes</a>
-        <a href="#">Promoções</a>
-        <a href="/telas/Contato/contato.html">Contato</a>
-      </nav>
+
+    <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+
+    <nav class="paginas" id="menuPaginas">
+      <a href="/index.php">Início</a>
+      <a href="/index.php#filmesEmCartaz">Filmes</a>
+      <a href="#">Promoções</a>
+      <a href="/telas/Contato/contato.php">Contato</a>
+
       <div class="perfil">
         <?php if (isset($_SESSION['usuario_id'])): ?>
           <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
@@ -41,7 +40,7 @@ session_start();
           <a href="/telas/tela_login/login.html">Login</a>
         <?php endif; ?>
       </div>
-    </div>
+    </nav>
   </header>
 
   <main class="container">
@@ -136,11 +135,14 @@ session_start();
       <p>Telefone: (75) 99999-9999</p>
     </div>
   </footer>
-
-  <script src="/cine_senac/js/navbar.js"></script>
+  
   <script>
-    // Adicione qualquer script específico da página de contato aqui, se necessário
-  </script>
+  function toggleMenu() {
+    const menu = document.getElementById('menuPaginas');
+    menu.classList.toggle('active');
+  }
+</script>
+
 </body>
 
 </html>

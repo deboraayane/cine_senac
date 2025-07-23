@@ -60,21 +60,17 @@ session_start();
   <header class="navBar">
 
     <div class="logo">
-      <a href="/index.php">
-        <img src="/img/logo-cine-senac.png" alt="CineSenac" />
-      </a>
+      <img src="/img/logo-cine-senac.png" alt="CineSenac" />
     </div>
 
     <div class="hamburger">&#9776;</div>
 
-    <div class="paginas">
-      <nav>
-        <a href="/index.php">Início</a>
-        <a href="#filmesEmCartaz">Filmes</a>
-        <a href="#">Promoções</a>
-        <a href="/telas/Contato/contato.php">Contato</a>
-      </nav>
-
+    <nav class="paginas">
+      <a href="/index.php">Início</a>
+      <a href="/index.php#filmesEmCartaz">Filmes</a>
+      <a href="#">Promoções</a>
+      <a href="/telas/Contato/contato.php">Contato </a>
+      <!-- Perfil/login dentro da navbar -->
       <div class="perfil">
         <?php if (isset($_SESSION['usuario_id'])): ?>
           <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
@@ -87,8 +83,7 @@ session_start();
           <a href="/telas/tela_login/login.html">Login</a>
         <?php endif; ?>
       </div>
-    </div>
-
+    </nav>
   </header>
 
   <main class="container">
