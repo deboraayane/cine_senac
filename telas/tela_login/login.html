@@ -8,19 +8,24 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-
     <div class="container">
-          <!-- Logo com link para a homepage -->
+      <!-- Logo com link para a homepage -->
       <div class="logo-container">
         <a href="../../index.php">
-        <img src="/img/logo-cine-senac-c.png" alt="CineSenac" class="logo-pequena" />
+          <img
+            src="/img/logo-cine-senac-c.png"
+            alt="CineSenac"
+            class="logo-pequena"
+          />
         </a>
       </div>
+
       <div class="header">
         <h1>Entrar</h1>
         <p>Acesse sua conta</p>
       </div>
 
+      <!-- Formulário de login -->
       <form method="post" action="login.php" id="loginForm">
         <div class="form-group">
           <label for="email">E-mail</label>
@@ -37,7 +42,7 @@
           <label for="senha">Senha</label>
           <input
             type="password"
-            id="senha"  
+            id="senha"
             name="senha"
             placeholder="Digite sua senha"
             required
@@ -49,18 +54,37 @@
           <label for="lembrar">Lembrar-me</label>
         </div>
 
+        <!-- Campo oculto para redirecionamento -->
+        <input type="hidden" name="redirect" id="redirect" />
+
         <button type="submit" class="submit-btn">Entrar</button>
       </form>
 
-      <button type="button" class="cancel-btn" onclick="window.location.href='../../index.php'">Cancelar</button>
+      <button
+        type="button"
+        class="cancel-btn"
+        onclick="window.location.href='../../index.php'"
+      >
+        Cancelar
+      </button>
 
       <div class="forgot-password">
         <a href="#" onclick="return false;">Esqueceu sua senha?</a>
       </div>
 
       <div class="auth-link">
-        Não tem uma conta? <a href="../tela_cadastro_usuario/cadastro_usuario.html">Cadastre-se</a>
+        Não tem uma conta?
+        <a href="../tela_cadastro_usuario/cadastro_usuario.html">Cadastre-se</a>
       </div>
     </div>
+
+    <script>
+      // Captura o parâmetro ?redirect= da URL e coloca no campo hidden do form
+      const params = new URLSearchParams(window.location.search);
+      const redirect = params.get("redirect");
+      if (redirect) {
+        document.getElementById("redirect").value = redirect;
+      }
+    </script>
   </body>
 </html>

@@ -1,251 +1,244 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
-<html lang="pt-BR"> 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/img/favicon.png" type="image/png" />
-    <title>Pagamento - PIX e Cartão</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
+<html lang="pt-BR">
 
-  <body>
-    
-     <div class="perfil">
-      <?php if (isset($_SESSION['usuario_id'])): ?>
-        <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
-          <a href="/telas/telas_modal/tela_modal.php">Painel Admin</a>
-        <?php else: ?>
-          <span>Olá, <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?></span>
-        <?php endif; ?>
-        <a href="/php/logout.php">Sair</a>
-      <?php else: ?>
-        <a href="/telas/tela_login/login.html">Login</a>
-      <?php endif; ?>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="/img/favicon.png" type="image/png" />
+  <title>Pagamento - PIX e Cartão</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <div class="payment-container">
+    <div class="payment-header">
+      <h1 class="payment-title">Finalizar Pagamento</h1>
+      <p class="payment-subtitle">Escolha sua forma de pagamento</p>
     </div>
 
-    <div class="payment-container">
-      <div class="payment-header">
-        <h1 class="payment-title">Finalizar Pagamento</h1>
-        <p class="payment-subtitle">Escolha sua forma de pagamento</p>
-      </div>
-
-      <!-- NOVA SEÇÃO: Detalhes do filme -->
-      <div class="payment-subtitle">
-        <h2 id="filme-titulo">Título do Filme</h2>
-        <p><strong>Sala:</strong> <span id="filme-sala"></span></p>
-        <p><strong>Data:</strong> <span id="filme-data"></span></p>
-        <p><strong>Horário:</strong> <span id="filme-horario"></span></p>
-      </div>
-
-      <div class="payment-amount">
-        <div class="amount-label">Total a pagar</div>
-        <div class="amount-value">R$ 0,00</div>
-      </div>
-
-      <div class="payment-methods">
-        <div class="method-selector">
-          <div class="method-option active" data-method="pix">PIX</div>
-          <div class="method-option" data-method="card">Cartão</div>
-        </div>
-
-        <div class="payment-content">
-          <div class="pix-content active">
-            <div class="pix-instructions">
-              <p>
-                Escaneie o QR Code com seu aplicativo do banco ou copie e cole o
-                código PIX abaixo
-              </p>
-            </div>
-
-            <div class="qr-code">
-              <img src="qrcode.png" alt="QR Code PIX" class="qr-image" />
-            </div>
-
-            <div class="pix-code">
-              <div class="pix-code-label">Código PIX</div>
-              <div class="pix-code-value">
-                00020126580014BR.GOV.BCB.PIX013638a3b123-4567-8901-2345-678901234567
-              </div>
-            </div>
-
-            <button class="copy-button" onclick="copyPixCode()">
-              Copiar Código PIX
-            </button>
-          </div>
-
-          <div class="card-content">
-            <form id="cardForm">
-              <div class="form-group">
-                <label class="form-label">Número do Cartão</label>
-                <input type="text" class="form-input" placeholder="0000 0000 0000 0000" maxlength="19" onkeyup="formatCardNumber(this)" />
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Nome no Cartão</label>
-                <input type="text" class="form-input" placeholder="Digite o nome como está no cartão" />
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label class="form-label">Validade</label>
-                  <input type="text" class="form-input" placeholder="MM/AA" maxlength="5" onkeyup="formatExpiry(this)" />
-                </div>
-                <div class="form-group">
-                  <label class="form-label">CVV</label>
-                  <input type="password" class="form-input" placeholder="123" maxlength="4" />
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <button class="confirm-button" onclick="processPayment()">Confirmar Pagamento</button>
+    <!-- NOVA SEÇÃO: Detalhes do filme -->
+    <div class="payment-subtitle">
+      <h2 id="filme-titulo">Título do Filme</h2>
+      <p><strong>Sala:</strong> <span id="filme-sala"></span></p>
+      <p><strong>Data:</strong> <span id="filme-data"></span></p>
+      <p><strong>Horário:</strong> <span id="filme-horario"></span></p>
     </div>
 
-    <script>
-      // Preenche os dados ao carregar a página
-      window.addEventListener('DOMContentLoaded', () => {
-        const detalhes = JSON.parse(localStorage.getItem('detalhesCompra'));
-        const filme = JSON.parse(localStorage.getItem('filmeSelecionado'));
+    <div class="payment-amount">
+      <div class="amount-label">Total a pagar</div>
+      <div class="amount-value">R$ 0,00</div>
+    </div>
 
-        // Preenche valor total
-        if (detalhes && detalhes.total) {
-          const valorFormatado = detalhes.total.toFixed(2).replace('.', ',');
-          document.querySelector('.amount-value').textContent = `R$ ${valorFormatado}`;
-        }
+    <div class="payment-methods">
+      <div class="method-selector">
+        <div class="method-option active" data-method="pix">PIX</div>
+        <div class="method-option" data-method="card">Cartão</div>
+      </div>
 
-        // Preenche dados do filme
-        if (filme) {
-          document.getElementById("filme-titulo").textContent = filme.titulo || "Título não disponível";
-          document.getElementById("filme-sala").textContent = filme.sala || "N/D";
-          document.getElementById("filme-data").textContent = filme.data || "N/D";
-          document.getElementById("filme-horario").textContent = filme.hora || "N/D";
+      <div class="payment-content">
+        <div class="pix-content active">
+          <div class="pix-instructions">
+            <p>
+              Escaneie o QR Code com seu aplicativo do banco ou copie e cole o
+              código PIX abaixo
+            </p>
+          </div>
+
+          <div class="qr-code">
+            <img src="qrcode.png" alt="QR Code PIX" class="qr-image" />
+          </div>
+
+          <div class="pix-code">
+            <div class="pix-code-label">Código PIX</div>
+            <div class="pix-code-value">
+              00020126580014BR.GOV.BCB.PIX013638a3b123-4567-8901-2345-678901234567
+            </div>
+          </div>
+
+          <button class="copy-button" onclick="copyPixCode()">
+            Copiar Código PIX
+          </button>
+        </div>
+
+        <div class="card-content">
+          <form id="cardForm">
+            <div class="form-group">
+              <label class="form-label">Número do Cartão</label>
+              <input type="text" class="form-input" placeholder="0000 0000 0000 0000" maxlength="19" onkeyup="formatCardNumber(this)" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Nome no Cartão</label>
+              <input type="text" class="form-input" placeholder="Digite o nome como está no cartão" />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Validade</label>
+                <input type="text" class="form-input" placeholder="MM/AA" maxlength="5" onkeyup="formatExpiry(this)" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">CVV</label>
+                <input type="password" class="form-input" placeholder="123" maxlength="4" />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <button class="confirm-button" onclick="processPayment()">Confirmar Pagamento</button>
+  </div>
+
+  <script>
+    // Preenche os dados ao carregar a página
+    window.addEventListener('DOMContentLoaded', () => {
+      const detalhes = JSON.parse(localStorage.getItem('detalhesCompra'));
+      const filme = JSON.parse(localStorage.getItem('filmeSelecionado'));
+
+      // Preenche valor total
+      if (detalhes && detalhes.total) {
+        const valorFormatado = detalhes.total.toFixed(2).replace('.', ',');
+        document.querySelector('.amount-value').textContent = `R$ ${valorFormatado}`;
+      }
+
+      // Preenche dados do filme
+      if (filme) {
+        document.getElementById("filme-titulo").textContent = filme.titulo || "Título não disponível";
+        document.getElementById("filme-sala").textContent = filme.sala || "N/D";
+        document.getElementById("filme-data").textContent = filme.data || "N/D";
+        document.getElementById("filme-horario").textContent = filme.hora || "N/D";
+      }
+    });
+
+    const methodOptions = document.querySelectorAll(".method-option");
+    const pixContent = document.querySelector(".pix-content");
+    const cardContent = document.querySelector(".card-content");
+
+    methodOptions.forEach((option) => {
+      option.addEventListener("click", () => {
+        methodOptions.forEach((opt) => opt.classList.remove("active"));
+        option.classList.add("active");
+
+        const method = option.dataset.method;
+        if (method === "pix") {
+          pixContent.classList.add("active");
+          cardContent.classList.remove("active");
+        } else {
+          cardContent.classList.add("active");
+          pixContent.classList.remove("active");
         }
       });
+    });
 
-      const methodOptions = document.querySelectorAll(".method-option");
-      const pixContent = document.querySelector(".pix-content");
-      const cardContent = document.querySelector(".card-content");
-
-      methodOptions.forEach((option) => {
-        option.addEventListener("click", () => {
-          methodOptions.forEach((opt) => opt.classList.remove("active"));
-          option.classList.add("active");
-
-          const method = option.dataset.method;
-          if (method === "pix") {
-            pixContent.classList.add("active");
-            cardContent.classList.remove("active");
-          } else {
-            cardContent.classList.add("active");
-            pixContent.classList.remove("active");
-          }
-        });
-      });
-
-      function copyPixCode() {
-        const pixCode = document.querySelector(".pix-code-value").textContent;
-        navigator.clipboard.writeText(pixCode).then(() => {
-          const button = document.querySelector(".copy-button");
-          const originalText = button.textContent;
-          button.textContent = "Copiado!";
-          button.style.background = "#28a745";
-          setTimeout(() => {
-            button.textContent = originalText;
-            button.style.background = "var(--primary-orange)";
-          }, 2000);
-        });
-      }
-
-      function formatCardNumber(input) {
-        let value = input.value.replace(/\D/g, "");
-        value = value.replace(/(\d{4})(?=\d)/g, "$1 ");
-        input.value = value;
-      }
-
-      function formatExpiry(input) {
-        let value = input.value.replace(/\D/g, "");
-        if (value.length >= 2) {
-          value = value.substring(0, 2) + "/" + value.substring(2, 4);
-        }
-        input.value = value;
-      }
-
-      function processPayment() {
-        const activeMethod = document.querySelector(".method-option.active").dataset.method;
-        const button = document.querySelector(".confirm-button");
-
-        button.disabled = true;
-        button.textContent = "Processando...";
-
+    function copyPixCode() {
+      const pixCode = document.querySelector(".pix-code-value").textContent;
+      navigator.clipboard.writeText(pixCode).then(() => {
+        const button = document.querySelector(".copy-button");
+        const originalText = button.textContent;
+        button.textContent = "Copiado!";
+        button.style.background = "#28a745";
         setTimeout(() => {
-          const detalhes = JSON.parse(localStorage.getItem('detalhesCompra')) || {};
-          const filme = JSON.parse(localStorage.getItem('filmeSelecionado')) || {};
+          button.textContent = originalText;
+          button.style.background = "var(--primary-orange)";
+        }, 2000);
+      });
+    }
 
-          const nomeFilme = filme.titulo || "Filme Desconhecido";
-          const sala = ` ${filme.sala}`;
-          const data = ` ${filme.data}`;
-          const hora = ` ${filme.hora}`;
-          const usuario = ` ${filme.usuario}`;
-          const total = detalhes.total ? `R$ ${detalhes.total.toFixed(2).replace('.', ',')}` : "R$ 0,00";
+    function formatCardNumber(input) {
+      let value = input.value.replace(/\D/g, "");
+      value = value.replace(/(\d{4})(?=\d)/g, "$1 ");
+      input.value = value;
+    }
 
-          if (activeMethod === "pix") {
-            alert("Aguardando confirmação do PIX! Você será notificado quando o pagamento for confirmado.");
-          } else {
-            const form = document.createElement("form");
-            form.method = "POST";
-            form.action = "gerar_pdf.php";
-            form.target = "_blank";
-
-            const inputUsuario = document.createElement("input");
-            inputUsuario.type = "hidden";
-            inputUsuario.name = "nomeUsuario";
-            inputUsuario.value = nomeUsuario;
-
-            const inputNome = document.createElement("input");
-            inputNome.type = "hidden";
-            inputNome.name = "nomeFilme";
-            inputNome.value = nomeFilme;
-
-            const inputSala = document.createElement("input");
-            inputSala.type = "hidden";
-            inputSala.name = "sala";
-            inputSala.value = sala;
-
-            const inputData = document.createElement("input");
-            inputData.type = "hidden";
-            inputData.name = "data";
-            inputData.value = data;
-
-            const inputHora = document.createElement("input");
-            inputHora.type = "hidden";
-            inputHora.name = "hora";
-            inputHora.value = hora;
-
-            const inputTotal = document.createElement("input");
-            inputTotal.type = "hidden";
-            inputTotal.name = "total";
-            inputTotal.value = total;
-
-            form.appendChild(inputNome);
-            form.appendChild(inputSala);
-            form.appendChild(inputData);
-            form.appendChild(inputHora);
-            form.appendChild(inputTotal);
-            form.appendChild(inputUsuario)
-            document.body.appendChild(form);
-            form.submit();
-            form.remove();
-
-            alert("Pagamento aprovado! Gerando comprovante...");
-          }
-
-          button.disabled = false;
-          button.textContent = "Confirmar Pagamento";
-        }, 3000);
+    function formatExpiry(input) {
+      let value = input.value.replace(/\D/g, "");
+      if (value.length >= 2) {
+        value = value.substring(0, 2) + "/" + value.substring(2, 4);
       }
-    </script>
-  </body>
+      input.value = value;
+    }
+
+    function processPayment() {
+      const activeMethod = document.querySelector(".method-option.active").dataset.method;
+      const button = document.querySelector(".confirm-button");
+
+      button.disabled = true;
+      button.textContent = "Processando...";
+
+      setTimeout(() => {
+        //const usuarios = JSON.parse(localStorage.getItem('usuarioSelecionado')) || {};
+        const detalhes = JSON.parse(localStorage.getItem('detalhesCompra')) || {};
+        const filme = JSON.parse(localStorage.getItem('filmeSelecionado')) || {};
+
+        const nomeFilme = filme.titulo || "Filme Desconhecido";
+        const sala = ` ${filme.sala}`;
+        //const usuario = ` ${usuarios.usuario}`;
+        const data = ` ${filme.data}`;
+        const hora = ` ${filme.hora}`;
+        const total = detalhes.total ? `R$ ${detalhes.total.toFixed(2).replace('.', ',')}` : "R$ 0,00";
+
+        if (activeMethod === "pix") {
+          alert("Aguardando confirmação do PIX! Você será notificado quando o pagamento for confirmado.");
+        } else {
+          const form = document.createElement("form");
+          form.method = "POST";
+          form.action = "gerar_pdf.php";
+          form.target = "_blank";
+
+          /*const inputUsuario = document.createElement("input");
+          inputUsuario.type = "hidden";
+          inputUsuario.name = "nomeUsuario";
+          inputUsuario.value = nomeUsuario;*/
+
+          const inputNome = document.createElement("input");
+          inputNome.type = "hidden";
+          inputNome.name = "nomeFilme";
+          inputNome.value = nomeFilme;
+
+          const inputSala = document.createElement("input");
+          inputSala.type = "hidden";
+          inputSala.name = "sala";
+          inputSala.value = sala;
+
+          const inputData = document.createElement("input");
+          inputData.type = "hidden";
+          inputData.name = "data";
+          inputData.value = data;
+
+          const inputHora = document.createElement("input");
+          inputHora.type = "hidden";
+          inputHora.name = "hora";
+          inputHora.value = hora;
+
+
+          const inputTotal = document.createElement("input");
+          inputTotal.type = "hidden";
+          inputTotal.name = "total";
+          inputTotal.value = total;
+
+          //form.appendChild(inputUsuario);
+          form.appendChild(inputNome);
+          form.appendChild(inputSala);
+          form.appendChild(inputData);
+          form.appendChild(inputHora);
+          form.appendChild(inputTotal);
+          document.body.appendChild(form);
+          form.submit();
+          form.remove();
+
+          alert("Pagamento aprovado! Gerando comprovante...");
+        }
+
+        button.disabled = false;
+        button.textContent = "Confirmar Pagamento";
+      }, 3000);
+    }
+  </script>
+</body>
+
 </html>
-  
