@@ -1,0 +1,536 @@
+/* ===== VARIÁVEIS DE COR ===== */
+:root {
+  --primary-orange: #ff8c5a;
+  --primary-orange-light: #ffab7a;
+  --primary-orange-dark: #ff6b35;
+  --primary-orange-hover: #ff9d6b;
+
+  --dark-gray: #2a2a2a;
+  --medium-gray: #3a3a3a;
+  --light-gray: #404040;
+  --text-gray: #b3b3b3;
+  --text-light: #ffffff;
+
+  --orange-alpha-10: rgba(255, 140, 90, 0.1);
+  --orange-alpha-20: rgba(255, 140, 90, 0.2);
+
+  --shadow-header: 0 2px 10px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 20px rgba(255, 140, 90, 0.3);
+
+  --transition-fast: 0.3s ease;
+  --transition-glow: 0.4s ease;
+}
+
+/* ===== NAVBAR GERAL ===== */
+.navBar {
+  background: linear-gradient(135deg, var(--dark-gray), var(--medium-gray) 100%);
+  border-bottom: 2px solid var(--primary-orange);
+  box-shadow: var(--shadow-header);
+  padding: 1rem 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(10px);
+}
+
+/* ===== LOGO ===== */
+.navBar .logo img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  cursor: pointer;
+  transition: all var(--transition-glow);
+}
+
+.navBar .logo img:hover {
+  filter: brightness(1.2);
+  transform: scale(1.05);
+}
+
+/* ===== MENU UNIFICADO (PAGINAS) ===== */
+.paginas {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.paginas a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  position: relative;
+  transition: all var(--transition-fast);
+  letter-spacing: 0.3px;
+}
+
+.paginas a::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-orange), var(--primary-orange-light));
+  transition: all var(--transition-fast);
+  transform: translateX(-50%);
+}
+
+.paginas a:hover {
+  color: var(--primary-orange);
+  background-color: var(--orange-alpha-10);
+  transform: translateY(-2px);
+}
+
+.paginas a:hover::before {
+  width: 100%;
+}
+
+.paginas a.active {
+  color: var(--primary-orange);
+  background-color: var(--orange-alpha-10);
+}
+
+.paginas a.active::before {
+  width: 100%;
+}
+
+/* ===== PERFIL ===== */
+.perfil a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.75rem 2rem;
+  border: 2px solid var(--primary-orange);
+  border-radius: 25px;
+  background: transparent;
+  transition: all var(--transition-fast);
+}
+
+.perfil a:hover {
+  background-color: var(--primary-orange);
+  color: var(--text-light);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--orange-alpha-20);
+}
+
+/* ===== HAMBÚRGUER ===== */
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+/* ===== RESPONSIVO (1024px) ===== */
+@media (max-width: 1024px) {
+  .navBar {
+    padding: 1rem 1.5rem;
+  }
+
+  .paginas {
+    gap: 2rem;
+  }
+
+  .paginas a {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .navBar .logo img {
+    height: 45px;
+  }
+
+  .navBar .logo h1 {
+    font-size: 1.8rem;
+  }
+}
+
+/* ===== RESPONSIVO (≤ 768px) ===== */
+@media (max-width: 768px) {
+  .navBar {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+
+  .logo {
+    order: 1;
+    text-align: center;
+    margin: 0 auto;
+    width: 50%;
+  }
+
+  .hamburger {
+    display: block;
+    order: 2;
+    position: static;
+    transform: none;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 3;
+  }
+
+  .paginas {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--medium-gray);
+    padding: 1rem 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+  }
+
+  .paginas.active {
+    display: flex;
+  }
+
+  .perfil {
+    margin-top: 1rem;
+    position: static;
+    text-align: center;
+}
+}
+/* ===== RESPONSIVO (480px) ===== */
+/*Nav bar atualizada e funcional pagina home*/
+@media (max-width: 480px) {
+  .navBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+  }
+
+  .hamburger {
+    font-size: 2.5rem;
+    color: var(--text-light);
+    cursor: pointer;
+    margin-left: auto;
+  }
+
+  .logo {
+    position: absolute;
+    left: 10%;
+    transform: translateX(-50%);
+    z-index: 1;
+    margin-left: 17px;
+    top: 5px;
+  }
+
+  .logo img {
+    height: 35px;
+  }
+}
+
+
+
+
+/* ===== EFEITOS ===== */
+.navBar:hover {
+  border-bottom-color: var(--primary-orange-light);
+}
+
+      /* ===== MAIN CONTENT ===== */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        
+
+
+
+        
+  /* ===== SEÇÃO FILME ===== */
+        .info-filme {
+            background: linear-gradient(135deg, var(--light-gray) 0%, var(--medium-gray) 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--orange-alpha-10);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .info-filme img {
+            width: 200px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            background-color: var(--dark-gray);
+            border: 2px solid var(--primary-orange);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-filme h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-orange);
+            font-weight: 600;
+        }
+
+        .info-filme p {
+            margin-bottom: 1.5rem;
+            color: var(--text-gray);
+            font-size: 1.1rem;
+        }
+
+        .info-filme .resumo {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .info-filme .resumo span:last-child {
+            color: var(--primary-orange);
+        }
+
+        /* ===== SELEÇÃO DE INGRESSOS ===== */
+        .selecao-ingresso {
+            background: linear-gradient(135deg, var(--light-gray) 0%, var(--medium-gray) 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--orange-alpha-10);
+        }
+
+        .selecao-ingresso h3 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-orange);
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .tipo-ingresso {
+            background: linear-gradient(135deg, var(--dark-gray) 0%, var(--medium-gray) 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--orange-alpha-10);
+        }
+
+        .tipo-ingresso h4 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-orange);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .ticket-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+            border: 1px solid var(--orange-alpha-10);
+            transition: all var(--transition-fast);
+        }
+
+        .ticket-item:hover {
+            background: var(--medium-gray);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .ticket-item span:first-child {
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .ticket-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .ticket-controls button {
+            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-orange-dark) 100%);
+            color: var(--text-light);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+            font-weight: 600;
+        }
+
+        .ticket-controls button:hover {
+            background: linear-gradient(135deg, var(--primary-orange-light) 0%, var(--primary-orange) 100%);
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px var(--orange-alpha-20);
+        }
+
+        .ticket-controls button:disabled {
+            background: var(--text-gray);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .ticket-controls .preco {
+            font-weight: 600;
+            color: var(--primary-orange);
+            min-width: 80px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .resumo-compra {
+            background: linear-gradient(135deg, var(--dark-gray) 0%, var(--medium-gray) 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--orange-alpha-10);
+        }
+
+        .resumo-compra .resumo-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .resumo-compra .resumo-item:last-child {
+            margin-bottom: 0;
+            color: var(--primary-orange);
+            font-size: 1.2rem;
+        }
+
+        .btn-finalizar {
+            width: 100%;
+            height: 60px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-orange-dark) 100%);
+            color: var(--text-light);
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .btn-finalizar:hover:not(:disabled) {
+            background: linear-gradient(135deg, var(--primary-orange-light) 0%, var(--primary-orange) 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--orange-alpha-20);
+        }
+
+        .btn-finalizar:disabled {
+            background: var(--text-gray);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ===== FOOTER RODAPÉ ===== */
+        .rodape {
+            background: linear-gradient(135deg, var(--dark-gray) 0%, var(--medium-gray) 100%);
+            border-top: 2px solid var(--primary-orange);
+            box-shadow: var(--shadow-footer);
+            padding: 2rem 1rem;
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            position: relative;
+        }
+
+        .rodape .logo p {
+            color: var(--primary-orange);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+            text-shadow: 0 0 8px var(--orange-alpha-20);
+            letter-spacing: 0.5px;
+        }
+
+        .rodape .redesSociais {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-gray);
+            font-size: 1rem;
+        }
+
+        .rodape .redesSociais a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+
+        .rodape .redesSociais a::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-orange), var(--primary-orange-light));
+            transition: all var(--transition-fast);
+            transform: translateX(-50%);
+        }
+
+        .rodape .redesSociais a:hover {
+            color: var(--primary-orange);
+            background-color: var(--orange-alpha-10);
+            transform: translateY(-2px);
+        }
+
+        .rodape .redesSociais a:hover::before {
+            width: 100%;
+        }
+
+        .rodape .contato {
+            text-align: right;
+        }
+
+        .rodape .contato p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin: 0.3rem 0;
+            line-height: 1.4;
+            transition: color var(--transition-fast);
+        }
+
+        .rodape .contato p:hover {
+            color: var(--text-light);
+        }

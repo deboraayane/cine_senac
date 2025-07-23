@@ -81,10 +81,10 @@ $conn->close();
     <nav class="paginas">
       <a href="/index.php">Início</a>
       <a href="#filmesEmCartaz">Filmes</a>
-      <a href="#">Promoções </a>
-      <a href="/telas/Contato/contato.html">Contato </a>
-    </nav>
-    <div class="perfil">
+      <a href="#">Promoções</a>
+      <a href="/telas/Contato/contato.php">Contato </a>
+    <!-- Perfil/login dentro da navbar -->
+      <div class="perfil">
       <?php if (isset($_SESSION['usuario_id'])): ?>
         <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
           <a href="/telas/telas_modal/tela_modal.php">Painel Admin</a>
@@ -96,10 +96,9 @@ $conn->close();
         <a href="/telas/tela_login/login.html">Login</a>
       <?php endif; ?>
     </div>
-
-
+    </nav>
   </header>
-
+  
   <main>
     <section class="carrossel container">
       <h2>Em Destaque</h2>
