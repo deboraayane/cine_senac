@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/global/global.css">
-    <link rel="stylesheet" href="ingresso.css">
     <title>Compra de Ingressos</title>
 </head>
 
@@ -29,6 +28,7 @@
 
     <!-- ===== MAIN CONTENT ===== -->
     <main>
+        <BR><BR>
         <!-- Informações do Filme -->
         <section class="info-filme">
             <img src="" alt="Cartaz do filme" class="placeholder-img" id="cartaz-img">
