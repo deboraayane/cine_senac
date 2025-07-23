@@ -1,0 +1,10 @@
+@import "/css/includes/font.css";
+@import "/css/includes/header.css";
+@import "/css/includes/footer.css";
+@import "/css/pages/pag_inicial.css";
+@import "/css/pages/pag_detalhe_filme.css";
+
+html {
+  scroll-behavior: smooth;
+}
+

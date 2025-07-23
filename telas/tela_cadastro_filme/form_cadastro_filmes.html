@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/img/favicon.png" type="image/png" />
+    <title>Cadastro de Filmes</title>
+    <link rel="stylesheet" href="form_cadastro_filme.css" />
+  </head>
+  <body>
+    <h1>Cadastro de Filmes</h1>
+    <form
+      method="post"
+      action="form_cadastro_filme.php"
+      enctype="multipart/form-data"
+      >
+      <label>
+        Título:
+        <input
+          type="text"
+          name="titulo_filme"
+          placeholder="Escreva o título..."
+        />
+      </label>
+
+      <label>
+        Classificação indicativa:
+        <div class="select-wrapper">
+          <select name="classificacao_indicativa">
+            <option value="" disabled selected>Selecione...</option>
+            <option value="Livre">Livre</option>
+            <option value="10">10 anos</option>
+            <option value="12">12 anos</option>
+            <option value="14">14 anos</option>
+            <option value="16">16 anos</option>
+            <option value="18">18 anos</option>
+            <option value="Outro">Outro</option>
+          </select>
+        </div>
+      </label>
+
+      <label>
+        Gênero:
+        <div class="select-wrapper">
+          <select name="genero" >
+            <option value="" disabled selected>Selecione...</option>
+            <option value="Ação">Ação</option>
+            <option value="Animação">Animação</option>
+            <option value="Comédia">Comédia</option>
+            <option value="Documentário">Documentário</option>
+            <option value="Drama">Drama</option>
+            <option value="Fantasia">Fantasia</option>
+            <option value="Ficção Científica">Ficção Científica</option>
+            <option value="Musical">Musical</option>
+            <option value="Romance">Romance</option>
+            <option value="Suspense">Suspense</option>
+            <option value="Terror">Terror</option>
+            <option value="Outro">Outro</option>
+          </select>
+        </div>
+      </label>
+
+      <label for="subgenero">Subgêneros:</label>
+      <div class="custom-multiselect">
+        <div class="select-box" onclick="toggleCheckboxes()">
+          <span id="selected">Selecione...</span>
+          <span class="arrow">&#9662;</span>
+        </div>
+        <div id="checkboxes" class="checkboxes">
+          <label><input type="checkbox" value="Policial/Investigativo" /> Policial/Investigativo</label>
+          <label><input type="checkbox" value="Romântica" /> Romântica</label>
+          <label><input type="checkbox" value="Cômica" /> Cômica</label>
+          <label><input type="checkbox" value="Histórica" /> Histórica</label>
+          <label><input type="checkbox" value="Fantástica" /> Comédia</label>
+          <label><input type="checkbox" value="Psicológica" /> Drama</label>
+          <label><input type="checkbox" value="Sobrevivência" /> Terror</label>
+          <label><input type="checkbox" value="Musical" /> Fantasia</label>
+          <label><input type="checkbox" value="Super-heróis" /> Super-heróis</label>
+          <label><input type="checkbox" value="Biográfica / Realista" /> Policial</label>
+          <label><input type="checkbox" value="Histórico" /> Histórico</label>
+          <label><input type="checkbox" value="Outro" /> Outro</label>
+        </div>
+        <input type="hidden" name="sub_genero" id="sub_genero_input" />
+      </div>
+
+      <label>
+        Duração (Minutos):
+        <input
+          type="number"
+          name="duracao"
+          placeholder="Duração em minutos"
+          min="1"
+        />
+      </label>
+
+      <label>
+        Sinopse:
+        <textarea
+          name="sinopse"
+          rows="4"
+          placeholder="Escreva a sinopse..."
+        ></textarea>
+      </label>
+
+      <label>
+        Pôster:
+        <input type="file" name="poster" accept="image/*" required />
+      </label>
+
+      <label>
+        Trailer (URL):
+        <input
+          type="url"
+          name="trailer"
+          placeholder="Link do trailer"
+        />
+      </label>
+
+      <input type="submit" value="Enviar" name="submit" />
+    </form>
+    <script src="form_cadastro_filme.js"></script>
+  </body>
+</html>

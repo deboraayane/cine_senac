@@ -1,0 +1,250 @@
+/* ===== VARIÁVEIS DE COR ===== */
+:root {
+  --primary-orange: #ff8c5a;
+  --primary-orange-light: #ffab7a;
+  --primary-orange-dark: #ff6b35;
+  --primary-orange-hover: #ff9d6b;
+
+  --dark-gray: #2a2a2a;
+  --medium-gray: #3a3a3a;
+  --light-gray: #404040;
+  --text-gray: #b3b3b3;
+  --text-light: #ffffff;
+
+  --orange-alpha-10: rgba(255, 140, 90, 0.1);
+  --orange-alpha-20: rgba(255, 140, 90, 0.2);
+
+  --shadow-header: 0 2px 10px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 20px rgba(255, 140, 90, 0.3);
+
+  --transition-fast: 0.3s ease;
+  --transition-glow: 0.4s ease;
+}
+
+/* ===== NAVBAR GERAL ===== */
+.navBar {
+  background: linear-gradient(135deg, var(--dark-gray), var(--medium-gray) 100%);
+  border-bottom: 2px solid var(--primary-orange);
+  box-shadow: var(--shadow-header);
+  padding: 1rem 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(10px);
+}
+
+/* ===== LOGO ===== */
+.navBar .logo img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  cursor: pointer;
+  transition: all var(--transition-glow);
+}
+
+.navBar .logo img:hover {
+  filter: brightness(1.2);
+  transform: scale(1.05);
+}
+
+/* ===== MENU E LINKS ===== */
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navBar .paginas {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.navBar .paginas a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  position: relative;
+  transition: all var(--transition-fast);
+  letter-spacing: 0.3px;
+}
+
+.navBar .paginas a::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-orange), var(--primary-orange-light));
+  transition: all var(--transition-fast);
+  transform: translateX(-50%);
+}
+
+.navBar .paginas a:hover {
+  color: var(--primary-orange);
+  background-color: var(--orange-alpha-10);
+  transform: translateY(-2px);
+}
+
+.navBar .paginas a:hover::before {
+  width: 100%;
+}
+
+.navBar .perfil a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.75rem 2rem;
+  border: 2px solid var(--primary-orange);
+  border-radius: 25px;
+  background: transparent;
+  transition: all var(--transition-fast);
+}
+
+.navBar .perfil a:hover {
+  background-color: var(--primary-orange);
+  color: var(--text-light);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--orange-alpha-20);
+}
+
+/* ===== MENU HAMBÚRGUER ===== */
+
+
+.paginas {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+} 
+
+/* ===== RESPONSIVO (1024px) ===== */
+@media (max-width: 1024px) {
+  .navBar {
+    padding: 1rem 1.5rem;
+  }
+
+  .navBar .paginas {
+    gap: 2rem;
+  }
+
+  .navBar .paginas a {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .navBar .logo img {
+    height: 45px;
+  }
+
+  .navBar .logo h1 {
+    font-size: 1.8rem;
+  }
+}
+
+/* ===== RESPONSIVO (768px) ===== */
+@media (max-width: 768px) {
+  .navBar {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    position: relative;
+  }
+
+  .navBar .logo {
+    width: 100%;
+    text-align: center;
+    z-index: 2;
+  }
+
+  .navBar .logo img {
+    height: 40px;
+    display: inline-block;
+  }
+
+  .hamburger {
+    display: block;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--medium-gray);
+    padding: 1rem 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+  }
+
+  .menu.active {
+    display: flex;
+  }
+
+  .paginas {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .perfil {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .navBar .perfil a {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* ===== RESPONSIVO (480px) ===== */
+@media (max-width: 480px) {
+  .navBar {
+    padding: 0.75rem;
+  }
+
+  .navBar .logo img {
+    height: 35px;
+  }
+
+  .navBar .paginas a {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .navBar .perfil a {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* ===== EFEITOS ===== */
+.navBar:hover {
+  border-bottom-color: var(--primary-orange-light);
+}
+
+.navBar .paginas a.active {
+  color: var(--primary-orange);
+  background-color: var(--orange-alpha-10);
+}
+
+.navBar .paginas a.active::before {
+  width: 100%;
+}

@@ -1,0 +1,51 @@
+.schedule-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .title-secondary {
+    grid-column: 1 / -1;
+    margin: 0 0 20px;
+    font-size: 1.5em;
+    text-align: center;
+  }
+
+  .session {
+    background: #444;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .session h4 {
+    margin-top: 0;
+    color:#fff;
+    text-align: center;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .controls button {
+    padding: 6px 12px;
+    background: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #horarios-2d,
+  #horarios-3d {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    text-align: center;
+   
+  }

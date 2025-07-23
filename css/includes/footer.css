@@ -1,0 +1,255 @@
+/* ===== VARIÁVEIS DE COR ===== */
+:root {
+  /* Cores principais */
+  --primary-orange: #ff8c5a;
+  --primary-orange-light: #ffab7a;
+  --primary-orange-dark: #ff6b35;
+  --primary-orange-hover: #ff9d6b;
+  
+  /* Cinzas */
+  --dark-gray: #2a2a2a;
+  --medium-gray: #3a3a3a;
+  --light-gray: #404040;
+  --text-gray: #b3b3b3;
+  --text-light: #ffffff;
+  
+  /* Transparências */
+  --orange-alpha-10: rgba(255, 140, 90, 0.1);
+  --orange-alpha-20: rgba(255, 140, 90, 0.2);
+  
+  /* Sombras */
+  --shadow-footer: 0 -2px 10px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 15px rgba(255, 140, 90, 0.3);
+  
+  /* Transições */
+  --transition-fast: 0.3s ease;
+}
+
+/* ===== FOOTER RODAPÉ ===== */
+.rodape {
+  background: linear-gradient(135deg, var(--dark-gray) 0%, var(--medium-gray) 100%);
+  border-top: 2px solid var(--primary-orange);
+  box-shadow: var(--shadow-footer);
+  padding: 2rem 1rem;
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  position: relative;
+}
+
+/* ===== LOGO FOOTER ===== */
+.rodape .logo p {
+  color: var(--primary-orange);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+  text-shadow: 0 0 8px var(--orange-alpha-20);
+  letter-spacing: 0.5px;
+}
+
+/* ===== REDES SOCIAIS ===== */
+.rodape .redesSociais {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-gray);
+  font-size: 1rem;
+}
+
+.rodape .redesSociais a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.rodape .redesSociais a::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-orange), var(--primary-orange-light));
+  transition: all var(--transition-fast);
+  transform: translateX(-50%);
+}
+
+.rodape .redesSociais a:hover {
+  color: var(--primary-orange);
+  background-color: var(--orange-alpha-10);
+  transform: translateY(-2px);
+}
+
+.rodape .redesSociais a:hover::before {
+  width: 100%;
+}
+
+/* Separadores entre links */
+.rodape .redesSociais {
+  font-weight: 400;
+}
+
+/* ===== CONTATO ===== */
+.rodape .contato {
+  text-align: right;
+}
+
+.rodape .contato p {
+  color: var(--text-gray);
+  font-size: 0.95rem;
+  margin: 0.3rem 0;
+  line-height: 1.4;
+  transition: color var(--transition-fast);
+}
+
+.rodape .contato p:hover {
+  color: var(--text-light);
+}
+
+/* Destaque para email e telefone */
+.rodape .contato p:first-child {
+  font-weight: 500;
+}
+
+.rodape .contato p:last-child {
+  font-weight: 500;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 1024px) {
+  .rodape {
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+  
+  .rodape .logo p {
+    font-size: 1.1rem;
+  }
+  
+  .rodape .redesSociais {
+    font-size: 0.95rem;
+  }
+  
+  .rodape .contato p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .rodape {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+  
+  .rodape .logo {
+    order: 1;
+  }
+  
+  .rodape .redesSociais {
+    order: 2;
+    justify-content: center;
+  }
+  
+  .rodape .contato {
+    order: 3;
+    text-align: center;
+  }
+  
+  .rodape .logo p {
+    font-size: 1.2rem;
+  }
+  
+  .rodape .redesSociais {
+    font-size: 1rem;
+  }
+  
+  .rodape .contato p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .rodape {
+    padding: 1.2rem 0.8rem;
+    gap: 1.2rem;
+  }
+  
+  .rodape .logo p {
+    font-size: 1.1rem;
+  }
+  
+  .rodape .redesSociais {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .rodape .redesSociais a {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  .rodape .contato p {
+    font-size: 0.85rem;
+    margin: 0.4rem 0;
+  }
+}
+
+/* ===== EFEITOS ESPECIAIS ===== */
+.rodape:hover {
+  border-top-color: var(--primary-orange-light);
+}
+
+/* Efeito de brilho sutil no footer */
+.rodape::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary-orange), transparent);
+  opacity: 0.6;
+}
+
+/* Animação sutil para os itens de contato */
+.rodape .contato p {
+  position: relative;
+  cursor: default;
+}
+
+.rodape .contato p::before {
+  content: '📧';
+  position: absolute;
+  left: -25px;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.rodape .contato p:last-child::before {
+  content: '📞';
+}
+
+.rodape .contato p:hover::before {
+  opacity: 1;
+}
+
+/* Responsividade para os ícones */
+@media (max-width: 768px) {
+  .rodape .contato p::before {
+    position: static;
+    margin-right: 0.5rem;
+  }
+  
+  .rodape .contato p:hover::before {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,408 @@
+/* === LOGO CINE SENAC === */
+.logo-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo-pequena {
+  width: 200px;
+  height: auto;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.logo-pequena:hover {
+  transform: scale(1.05);
+}
+
+/* === LAYOUT DOS BOTÕES ADMINISTRATIVOS === */
+.botoes-admin {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* ESPAÇO ENTRE OS BOTÕES */
+  max-width: 300px; /* OPCIONAL, CONTROLA A LARGURA */
+  margin: 30px auto;
+  padding: 20px;
+  border: 2px solid #e6762f;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.botoes-admin button {
+  width: 100%; /* BOTÃO OCUPA TODA A LARGURA DO CONTAINER */
+}
+
+/* === ESTILO GLOBAL === */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f2f2f2;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #e6762f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* === MODAL === */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#modalFilme {
+  z-index: 2000; /* maior que o modalVerfilmes */
+}
+
+#modalVerfilmes {
+  z-index: 1000;
+}
+
+
+.modal-conteudo {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 95%;
+  max-width: 1100px; /* aumenta o limite horizontal */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow-x: auto; /* evita quebra visual */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fechar {
+  color: #aaa;
+  font-size: 28px;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+}
+
+.fechar:hover {
+  color: #000;
+}
+
+/* === FORMULÁRIO === */
+form {
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: auto;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.select-wrapper select {
+  width: 100%;
+  height: 42px;
+  padding: 10px;
+  padding-right: 30px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.select-wrapper::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  right: 15px;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #333;
+  transform: translateY(-50%);
+}
+
+input[type="text"],
+input[type="number"],
+input[type="url"],
+input[type="file"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input[type="submit"] {
+  background-color: #ff8c42;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+input[type="submit"]:hover {
+  background-color: #e6762f;
+  transform: translateY(-2px);
+}
+
+/* === CUSTOM MULTISELECT === */
+.custom-multiselect {
+  position: relative;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.custom-multiselect .select-box {
+  position: relative;
+  width: 100%;
+  height: 42px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #fff;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.custom-multiselect .select-box::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  right: 15px;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #333;
+  transform: translateY(-50%);
+}
+
+.custom-multiselect .checkboxes {
+  display: none;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: #fff;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.custom-multiselect .checkboxes.show {
+  display: block;
+}
+
+
+.arrow {
+  /* OCULTO, PODE USAR SE QUISER MOSTRAR SETA */
+  display: none;
+  float: right;
+}
+
+#selected {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* === DROPDOWN DAS CHECKBOXES === */
+.checkboxes {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 100;
+  box-sizing: border-box;
+}
+
+.checkboxes label {
+  display: block;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.checkboxes label:hover {
+  background-color: #f4f4f4;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 40px;
+  background-color: #f0f0f0;
+}
+
+.contador {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 32px;
+  margin-top: 20px;
+}
+
+button {
+  padding: 6px 12px;
+  font-size: 16px;
+  background-color: #e6762f;
+  color: white;
+  border: 1px solid #c76425;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #c76425;
+}
+/* Toggle Switch Estilo iOS */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  transition: 0.4s;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 28px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+/* Quando ativado */
+input:checked + .slider {
+  background-color: #4CAF50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+#modalVerfilmes table {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+#modalVerfilmes th,
+#modalVerfilmes td {
+  padding: 10px 8px;
+}
+
+table button {
+  padding: 6px 10px;
+  font-size: 14px;
+  margin: 2px;
+}
+
+#modalConfirmarExclusao .modal-conteudo {
+  max-width: 400px;
+  text-align: center;
+  padding: 30px;
+}
+
+#modalConfirmarExclusao button {
+  margin: 0 10px;
+}
+
+.btn-voltar {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #e6762f;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.btn-sair {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #e6762f;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
