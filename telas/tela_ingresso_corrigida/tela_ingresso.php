@@ -1,16 +1,24 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/global/global.css">
     <title>Compra de Ingressos</title>
+    <link rel="stylesheet" href="/css/global/global.css">
+
+    <script>
+        const usuarioLogado = <?php echo isset($_SESSION['usuario_id']) ? 'true' : 'false'; ?>;
+    </script>
 </head>
 
 <body>
- 
-    <!-- Início da barra de navegação -->
+
+    <!-- Barra de Navegação -->
     <header class="navBar">
         <div class="logo">
             <img src="/img/logo-cine-senac.png" alt="Logo Cine Senac" />
@@ -22,14 +30,22 @@
             <a href="https://wa.me/5575999999999" target="_blank">Contato</a>
         </nav>
         <div class="perfil">
-            <a href="/telas/tela_login/login.html">Login</a>
+            <?php if (isset($_SESSION['usuario_id'])): ?>
+                <?php if ($_SESSION['tipo_usuario'] === 'admin'): ?>
+                    <a href="/telas/telas_modal/tela_modal.php">Painel Admin</a>
+                <?php else: ?>
+                    <span>Olá, <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?></span>
+                <?php endif; ?>
+                <a href="/php/logout.php">Sair</a>
+            <?php else: ?>
+                <a href="/telas/tela_login/login.html">Login</a>
+            <?php endif; ?>
         </div>
     </header>
 
-    <!-- ===== MAIN CONTENT ===== -->
+    <!-- Conteúdo Principal -->
     <main>
-        <BR><BR>
-        <!-- Informações do Filme -->
+        <br><br>
         <section class="info-filme">
             <img src="" alt="Cartaz do filme" class="placeholder-img" id="cartaz-img">
             <h2 id="sala-info">Sala</h2>
@@ -44,7 +60,6 @@
             </div>
         </section>
 
-        <!-- Seleção de Ingressos -->
         <section class="selecao-ingresso">
             <h3>Selecione o seu ingresso</h3>
 
@@ -103,6 +118,7 @@
         </div>
     </footer>
 
+    <!-- JavaScript -->
     <script>
         let quantidades = {
             inteira: 0,
@@ -139,6 +155,14 @@
         }
 
         function finalizarCompra() {
+
+            if (!usuarioLogado) {
+                alert("Você precisa estar logado para finalizar a compra.");
+                const paginaAtual = encodeURIComponent(window.location.pathname);
+                window.location.href = `/telas/tela_login/login.html?redirect=${paginaAtual}`;
+                return;
+            }
+
             const totalIngressos = quantidades.inteira + quantidades.meia;
             const totalPreco = (quantidades.inteira * precos.inteira) + (quantidades.meia * precos.meia);
 
@@ -150,12 +174,10 @@
             };
 
             localStorage.setItem('detalhesCompra', JSON.stringify(detalhes));
-            window.location.href = '/telas/tela_pagamento/pagamento.html';
+            window.location.href = '/telas/tela_pagamento/pagamento.php';
         }
 
-        
-        // Carrega dados do filme selecionado do localStorage
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const dadosFilme = JSON.parse(localStorage.getItem('filmeSelecionado'));
 
             if (dadosFilme) {
@@ -170,8 +192,6 @@
             atualizarInterface();
         });
     </script>
-
-
 
 </body>
 
