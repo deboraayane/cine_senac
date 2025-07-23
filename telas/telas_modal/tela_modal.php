@@ -262,8 +262,8 @@ session_start();
         <form method="post" action="form_cadastro_sessao.php">
           <label for="filme">
             Filme:
-            <!-- falta uma coisa aqui  -->
-              
+            
+               <div class="select-wrapper">
             <select name="filme" id="filme" required>
             <option value="" disabled selected>Selecione um filme...</option>
             <?php 
@@ -276,8 +276,9 @@ session_start();
             }
             ?>
             </select>
-<!-- falta uma coisa aqui  -->
+               </div>
           </label>
+            <br>
 
  
             <label for="sala">Sala:
@@ -291,12 +292,12 @@ session_start();
                 }
                 ?>
                 </select>
-            </label>
+            </label><br><br>
 
-            <label for="tipo_exibicao_sessao">Tipo de Exibição:</label><br><!-- adicionou o br  -->
+            <label for="tipo_exibicao_sessao">Tipo de Exibição:</label><br>
             
             <label>
-                <br><!-- adicionou o br  -->
+                <br>
                 <input
                 type="checkbox"
                 name="tipo_exibicao_sessao[]"
