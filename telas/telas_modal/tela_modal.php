@@ -263,7 +263,7 @@ session_start();
           <label for="filme">
             Filme:
             
-               <div class="select-wrapper">
+              <div class="select-wrapper">
             <select name="filme" id="filme" required>
             <option value="" disabled selected>Selecione um filme...</option>
             <?php 
@@ -276,10 +276,9 @@ session_start();
             }
             ?>
             </select>
-               </div>
+            </div>
           </label>
-            <br>
-
+<br>
  
             <label for="sala">Sala:
                 <select name="sala" id="sala" required>
@@ -294,10 +293,10 @@ session_start();
                 </select>
             </label><br><br>
 
-            <label for="tipo_exibicao_sessao">Tipo de Exibição:</label><br>
+            <label for="tipo_exibicao_sessao">Tipo de Exibição:</label><br><!-- adicionou o br  -->
             
             <label>
-                <br>
+                <br><!-- adicionou o br  -->
                 <input
                 type="checkbox"
                 name="tipo_exibicao_sessao[]"
@@ -415,14 +414,15 @@ session_start();
       <div class="modal-conteudo">
         <span class="fechar fechar-relatorio">&times;</span>
         <h2>Relatorio</h2>
-
+ 
         <form method="post" action="relatorio.php">
         <label for="filme">
         Filme:
+        <div class="custom-multiselect">
         <select name="filme" id="filme" required>
             <option value="" disabled selected>Selecione um filme...</option>
             <option value="todos">Todos os filmes</option>
-            <?php 
+            <?php
             if (!empty($filmes_biblioteca)) {
                 foreach ($filmes_biblioteca as $filme) {
                     echo '<option value="' . $filme['id'] . '">' . htmlspecialchars($filme['titulo']) . '</option>';
@@ -433,10 +433,11 @@ session_start();
             ?>
             </select>
             </label>
-
-
+            </div>
+ <BR> <BR> <BR>
+ 
             <label for="tipo_exibicao_relatorio">Tipo de Exibição:</label>
-            
+            <BR> <BR> <BR>
             <label>
                 <input
                 type="checkbox"
@@ -444,7 +445,7 @@ session_start();
                 value="2d"
                 />
                 2D
-            </label>
+            </label> <BR> <BR> <BR>
             <label>
                 <input
                 type="checkbox"
@@ -453,15 +454,15 @@ session_start();
                 />
                 3D
             </label>
-        
-            
-            
+       
+           
+            <BR> <BR> <BR>
             <label for="periodo_relatorio">Escolha o período:</label>
             <label>
                 <input type="radio" name="periodo" value="15dias">
                     15 dias
             </label>
-
+ 
             <label>
                 <input type="radio" name="periodo" value="30dias">
                     30 dias
@@ -469,12 +470,12 @@ session_start();
             <p style="font-weight: bold;">ou</p>
             <label>
                 <input type="date" name="periodo_perso" value="">
-                    
-            </label><br>
-
-          
-          
-            <input type="submit" value="Emitir Relatorio"> 
+                   
+            </label><br> <BR>
+ 
+         
+         
+            <input type="submit" value="Emitir Relatorio">
         </form>
       </div>
     </div>
