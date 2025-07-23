@@ -51,6 +51,7 @@ button {
   cursor: pointer;
 }
 
+
 /* === MODAL === */
 .modal {
   display: none;
@@ -71,7 +72,6 @@ button {
 #modalVerfilmes {
   z-index: 1000;
 }
-
 
 .modal-conteudo {
   background-color: #fff;
@@ -113,7 +113,7 @@ form {
 }
 
 label {
-  display: block;
+  
   margin-top: 15px;
   font-weight: bold;
 }
@@ -236,13 +236,12 @@ input[type="submit"]:hover {
   width: 100%;
   max-height: 200px;
   overflow-y: auto;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .custom-multiselect .checkboxes.show {
   display: block;
 }
-
 
 .arrow {
   /* OCULTO, PODE USAR SE QUISER MOSTRAR SETA */
@@ -352,7 +351,7 @@ button:hover {
 
 /* Quando ativado */
 input:checked + .slider {
-  background-color: #4CAF50;
+  background-color: #4caf50;
 }
 
 input:checked + .slider:before {
@@ -405,4 +404,3 @@ table button {
   text-decoration: none;
   border-radius: 5px;
 }
-

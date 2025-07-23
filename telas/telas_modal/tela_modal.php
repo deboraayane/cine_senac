@@ -149,7 +149,7 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
 
                 <label>
                     Sinopse:
-                    <textarea name="sinopse" rows="4" placeholder="Escreva a sinopse..." required></textarea>
+                    <br><textarea name="sinopse" rows="4" placeholder="Escreva a sinopse..." required></textarea>
                 </label>
 
                 <label>
@@ -238,7 +238,7 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
     </div>
 
 <!-- CADASTRO DE SESSÃO -->
-
+                        <!-- não modificar daqui para baixo-->
     <div id="modalSessao" class="modal">
       <div class="modal-conteudo">
         <span class="fechar fechar-sessao">&times;</span>
@@ -247,41 +247,38 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
         <form method="post" action="form_cadastro_sessao.php">
           <label for="filme">
             Filme:
-            <select name="filme" id="filme" required>
-            <option value="" disabled selected>Selecione um filme...</option>
-            <?php 
-            if (!empty($filmes_biblioteca)) {
-                foreach ($filmes_biblioteca as $filme) {
-                    echo '<option value="' . $filme['id'] . '">' . htmlspecialchars($filme['titulo']) . '</option>';
+            <div class="select-wrapper">
+                <select name="filme" id="filme" required>
+                <option value="" disabled selected>Selecione um filme...</option>
+                <?php 
+                if (!empty($filmes_biblioteca)) {
+                    foreach ($filmes_biblioteca as $filme) {
+                        echo '<option value="' . $filme['id'] . '">' . htmlspecialchars($filme['titulo']) . '</option>';
+                    }
+                } else {
+                    echo '<option value="">Nenhum filme cadastrado</option>';
                 }
-            } else {
-                echo '<option value="">Nenhum filme cadastrado</option>';
-            }
-            ?>
-            </select>
-
+                ?>
+                </select>
+            </div>
           </label>
 
-            <label for="tipo_exibicao_sessao">Tipo de Exibição:</label>
+            <br><label for="tipo_exibicao_sessao">Tipo de Exibição:</label><br>
             
             <label>
-                <input
-                type="checkbox"
-                name="tipo_exibicao_sessao[]"
-                value="2D"
-                />
+                <br>
+                <input type="checkbox" name="tipo_exibicao_sessao[]" value="2D"/>
                 2D
             </label>
             <label>
-                <input
-                type="checkbox"
-                name="tipo_exibicao_sessao[]"
-                value="3D"
-                />
+                <input type="checkbox" name="tipo_exibicao_sessao[]" value="3D"/>
                 3D
             </label>
+                <!-- não mudar daqui para cima--> 
 
           <h4 style="margin-top: 30px;">Selecione uma data e horário</h4>
+
+
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
             <button id="btnAnterior-sessao"
             style="padding:6px 12px;background:#444;color:white;border:none;border-radius:5px;cursor:pointer;">&larr;
@@ -470,7 +467,26 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
         for (let i = 1; i <= 31; i++) {
             relatoriosDisponiveis[i] = ['13:00', '15:30', '18:00', '20:30'];
         }
-        function criarCalendario(tipo, containerId, infoId, horariosId, sessoes, mesAnoId, btnAntId, btnProxId) {
+        let datasSelecionadasPorTipo = {
+    'Sessão': { inicio: null, fim: null },
+    'Ingressos': { inicio: null, fim: null },
+    'Relatorio': { inicio: null, fim: null }
+};
+
+// Função para formatar uma data para YYYY-MM-DD
+function formatarData(dataObj) {
+    if (!dataObj) return ''; // Retorna vazio se a data for nula
+    const ano = dataObj.getFullYear();
+    const mes = String(dataObj.getMonth() + 1).padStart(2, '0');
+    const dia = String(dataObj.getDate()).padStart(2, '0');
+    return `${ano}-${mes}-${dia}`;
+}
+
+
+// Adicione `modoSelecao` como um parâmetro à sua função `criarCalendario`
+
+
+        function criarCalendario(tipo, containerId, infoId, horariosId, sessoes, mesAnoId, btnAntId, btnProxId, modoSelecao = 'unica') {
             let mes = hoje.getMonth();
             let ano = hoje.getFullYear();
 
@@ -515,36 +531,99 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
                     box.style.textAlign = 'center';
                     box.style.cursor = 'pointer';
 
-                    const data = new Date(ano, mes, d);
-                    const diaSemana = diasSemana[data.getDay()];
-                    const rotulo = `${diaSemana} - ${d}/${mes + 1}`;
+                    const dataAtual = new Date(ano, mes, d);
+                    dataAtual.setHours(0, 0, 0, 0); // Normaliza para comparação
 
+                    // === Lógica de Destaque das Datas ===
+                    const inicio = datasSelecionadasPorTipo[tipo].inicio;
+                    const fim = datasSelecionadasPorTipo[tipo].fim;
+
+                    if (modoSelecao === 'intervalo' && inicio && fim && dataAtual >= inicio && dataAtual <= fim) {
+                        box.style.background = '#ff8c5a'; // Laranja
+                    } else if (modoSelecao === 'intervalo' && inicio && dataAtual.toDateString() === inicio.toDateString()) {
+                        box.style.background = '#ff8c5a'; // Laranja (data inicial)
+                    } else if (modoSelecao === 'unica' && inicio && dataAtual.toDateString() === inicio.toDateString()) {
+                        box.style.background = '#ff8c5a'; // Laranja (data única selecionada)
+                    }
+
+
+                    // === Lógica de Clique para Seleção ===
                     box.onclick = () => {
-                        [...grade.children].forEach(el => {
-                            if (el.textContent && !diasSemana.includes(el.textContent)) el.style.background = 'black';
-                        });
-                        box.style.background = '#ff8c5a';
-                        info.textContent = `Sessões em ${rotulo}`;
-                        horarios.innerHTML = '';
-                        (sessoes[d] || []).forEach(h => {
-                            const btn = document.createElement('button');
-                            btn.textContent = h;
-                            btn.style.padding = '6px 10px';
-                            btn.style.margin = '5px';
-                            btn.style.border = 'none';
-                            btn.style.borderRadius = '5px';
-                            btn.style.background = '#4caf50';
-                            btn.style.color = 'white';
-                            btn.style.cursor = 'pointer';
-                            btn.onclick = () => {
-                                document.getElementById('dataSessaoSelecionada').value = `${ano}-${("0" + (mes + 1)).slice(-2)}-${("0" + d).slice(-2)}`;
-                                document.getElementById('horarioSessaoSelecionado').value = h;
-                                alert(`Você escolheu ${h} no dia ${rotulo} (${tipo})`);
-                            }
-                            horarios.appendChild(btn);
-                        });
-                    };
+                        const dataClicada = new Date(ano, mes, d);
+                        dataClicada.setHours(0, 0, 0, 0); // Normaliza
 
+                        if (modoSelecao === 'intervalo') {
+                            // Lógica para seleção de intervalo (usada no Cadastro de Sessão)
+                            if (!datasSelecionadasPorTipo[tipo].inicio || (datasSelecionadasPorTipo[tipo].inicio && datasSelecionadasPorTipo[tipo].fim)) {
+                                // Primeiro clique ou reiniciar seleção
+                                datasSelecionadasPorTipo[tipo].inicio = dataClicada;
+                                datasSelecionadasPorTipo[tipo].fim = null; // Reseta a data final
+                            } else if (dataClicada < datasSelecionadasPorTipo[tipo].inicio) {
+                                // Se a nova data for menor que a inicial, inverte
+                                datasSelecionadasPorTipo[tipo].fim = datasSelecionadasPorTipo[tipo].inicio;
+                                datasSelecionadasPorTipo[tipo].inicio = dataClicada;
+                            } else {
+                                // Segundo clique, define a data final
+                                datasSelecionadasPorTipo[tipo].fim = dataClicada;
+                            }
+
+                            // Atualiza o input hidden com o intervalo
+                            const inputDataSessao = document.getElementById('dataSessaoSelecionada');
+                            if (datasSelecionadasPorTipo[tipo].inicio && datasSelecionadasPorTipo[tipo].fim) {
+                                inputDataSessao.value = `${formatarData(datasSelecionadasPorTipo[tipo].inicio)}|${formatarData(datasSelecionadasPorTipo[tipo].fim)}`;
+                                info.textContent = `Sessão de ${formatarData(datasSelecionadasPorTipo[tipo].inicio)} até ${formatarData(datasSelecionadasPorTipo[tipo].fim)}`;
+                                // Aqui você pode também limpar os horários se eles não forem relevantes para um intervalo
+                                horarios.innerHTML = '';
+                            } else if (datasSelecionadasPorTipo[tipo].inicio) {
+                                inputDataSessao.value = formatarData(datasSelecionadasPorTipo[tipo].inicio);
+                                info.textContent = `Data Inicial da Sessão: ${formatarData(datasSelecionadasPorTipo[tipo].inicio)}`;
+                                horarios.innerHTML = ''; // Limpa horários se apenas a data inicial está selecionada
+                            } else {
+                                inputDataSessao.value = '';
+                                info.textContent = '';
+                                horarios.innerHTML = '';
+                            }
+
+                            // Redesenha o calendário para atualizar o destaque visual
+                            render();
+
+                        } else {
+                            // Lógica existente para seleção de data única (para Ingressos e Relatórios, por exemplo)
+                            // Limpa destaques anteriores
+                            [...grade.children].forEach(el => {
+                                if (el.textContent && !diasSemana.includes(el.textContent)) el.style.background = 'black';
+                            });
+                            box.style.background = '#ff8c5a'; // Laranja para a data única
+
+                            // Armazena a data única
+                            datasSelecionadasPorTipo[tipo].inicio = dataClicada;
+                            datasSelecionadasPorTipo[tipo].fim = null; // Garante que a data final seja nula para seleção única
+
+                            const diaSemana = diasSemana[dataClicada.getDay()];
+                            const rotulo = `${diaSemana} - ${d}/${mes + 1}`;
+                            info.textContent = `Sessões em ${rotulo}`;
+                            horarios.innerHTML = ''; // Limpa horários ao selecionar uma nova data única
+
+                            (sessoes[d] || []).forEach(h => {
+                                const btn = document.createElement('button');
+                                btn.textContent = h;
+                                btn.style.padding = '6px 10px';
+                                btn.style.margin = '5px';
+                                btn.style.border = 'none';
+                                btn.style.borderRadius = '5px';
+                                btn.style.background = '#4caf50';
+                                btn.style.color = 'white';
+                                btn.style.cursor = 'pointer';
+                                btn.onclick = () => {
+                                    // Este é o clique do horário, relevante para seleção de data única
+                                    document.getElementById(`data${tipo}Selecionada`).value = `${ano}-${("0" + (mes + 1)).slice(-2)}-${("0" + d).slice(-2)}`;
+                                    document.getElementById(`horario${tipo}Selecionado`).value = h;
+                                    // alert(`Você escolheu ${h} no dia ${rotulo} (${tipo})`);
+                                }
+                                horarios.appendChild(btn);
+                            });
+                        }
+                    };
                     grade.appendChild(box);
                 }
 
@@ -567,7 +646,7 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
                 render();
             };
 
-            render();
+            render(); // Renderiza o calendário inicial
         }
 
         // Inicializa o calendário ao carregar a página SESSÃO
@@ -580,7 +659,8 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
                 sessoesDisponiveis,
                 'mesAnoAtual-sessao',
                 'btnAnterior-sessao',
-                'btnProximo-sessao'
+                'btnProximo-sessao',
+                'intervalo'
             );
         });
 
@@ -594,7 +674,8 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
                 ingressosDisponiveis,
                 'mesAnoAtual-ingresso',
                 'btnAnterior-ingresso',
-                'btnProximo-ingresso'
+                'btnProximo-ingresso',
+                'unica  '
             );
         });
 
@@ -608,7 +689,8 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
                 relatoriosDisponiveis,
                 'mesAnoAtual-relatorio',
                 'btnAnterior-relatorio',
-                'btnProximo-relatorio'
+                'btnProximo-relatorio',
+                'unica'
             );
         });
 
