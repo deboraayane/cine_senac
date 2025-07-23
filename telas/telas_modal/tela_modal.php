@@ -9,15 +9,28 @@ include_once '../../config.php';
 $sql_todos_filmes = "SELECT id_filme, titulo, classificacao_indicativa, genero, sub_genero, duracao, destaque, posicao FROM filme ORDER BY id_filme ASC";
 $result_todos_filmes = $conn->query($sql_todos_filmes);
 
+$sql_todas_salas = "SELECT id_sala, nome FROM sala ORDER BY id_sala ASC";
+$result_todas_salas = $conn->query($sql_todas_salas);
+
 $filmes_biblioteca = [];
-if ($result_todos_filmes->num_rows > 0) {
-    while($row = $result_todos_filmes->fetch_assoc()) {
-        $filmes_biblioteca[] = $row;
+    if ($result_todos_filmes->num_rows > 0) {
+        while($row = $result_todos_filmes->fetch_assoc()) {
+            $filmes_biblioteca[] = $row;
+        }
     }
+
+$salas_biblioteca = [];
+    if ($result_todas_salas->num_rows > 0) {
+        while($row = $result_todas_salas->fetch_assoc()) {
+            $salas_biblioteca[] = $row;
+        }
 }
+
 $conn->close(); // Feche a conexão após buscar os dados para a página
 ?>
-
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -150,7 +163,7 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
 
                 <label>
                     Sinopse:
-                    <br><textarea name="sinopse" rows="4" placeholder="Escreva a sinopse..." required></textarea>
+                    <textarea name="sinopse" rows="4" placeholder="Escreva a sinopse..." required></textarea>
                 </label>
 
                 <label>
@@ -168,7 +181,8 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
         </div>
     </div>
 
-    <div id="modalVerfilmes" class="modal">
+<!-- BIBLIOTECA DE FILMES-->
+    <div id="modalVerFilmes" class="modal">
         <div class="modal-conteudo">
             <span class="fechar fechar-Verfilmes">&times;</span>
             <h2>Biblioteca de Filmes</h2>
@@ -239,7 +253,7 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
     </div>
 
 <!-- CADASTRO DE SESSÃO -->
-                        <!-- não modificar daqui para baixo-->
+
     <div id="modalSessao" class="modal">
       <div class="modal-conteudo">
         <span class="fechar fechar-sessao">&times;</span>
@@ -248,38 +262,58 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
         <form method="post" action="form_cadastro_sessao.php">
           <label for="filme">
             Filme:
-            <div class="select-wrapper">
-                <select name="filme" id="filme" required>
-                <option value="" disabled selected>Selecione um filme...</option>
+            <!-- falta uma coisa aqui  -->
+              
+            <select name="filme" id="filme" required>
+            <option value="" disabled selected>Selecione um filme...</option>
+            <?php 
+            if (!empty($filmes_biblioteca)) {
+                foreach ($filmes_biblioteca as $filme) {
+                    echo '<option value="' . $filme['id'] . '">' . htmlspecialchars($filme['titulo']) . '</option>';
+                }
+            } else {
+                echo '<option value="">Nenhum filme cadastrado</option>';
+            }
+            ?>
+            </select>
+<!-- falta uma coisa aqui  -->
+          </label>
+
+ 
+            <label for="sala">Sala:
+                <select name="sala" id="sala" required>
+                <option value="" disabled selected>Selecione uma sala...</option>
                 <?php 
-                if (!empty($filmes_biblioteca)) {
-                    foreach ($filmes_biblioteca as $filme) {
-                        echo '<option value="' . $filme['id'] . '">' . htmlspecialchars($filme['titulo']) . '</option>';
+                    if (!empty($salas_biblioteca)){
+                        foreach ($salas_biblioteca as $sala) {
+                            echo '<option value="' . $sala['id_sala'] . '">' . htmlspecialchars($sala['nome']) . '</option>';
                     }
-                } else {
-                    echo '<option value="">Nenhum filme cadastrado</option>';
                 }
                 ?>
                 </select>
-            </div>
-          </label>
+            </label>
 
-            <br><label for="tipo_exibicao_sessao">Tipo de Exibição:</label><br>
+            <label for="tipo_exibicao_sessao">Tipo de Exibição:</label><br><!-- adicionou o br  -->
             
             <label>
-                <br>
-                <input type="checkbox" name="tipo_exibicao_sessao[]" value="2D"/>
+                <br><!-- adicionou o br  -->
+                <input
+                type="checkbox"
+                name="tipo_exibicao_sessao[]"
+                value="2D"
+                />
                 2D
             </label>
             <label>
-                <input type="checkbox" name="tipo_exibicao_sessao[]" value="3D"/>
+                <input
+                type="checkbox"
+                name="tipo_exibicao_sessao[]"
+                value="3D"
+                />
                 3D
             </label>
-                <!-- não mudar daqui para cima--> 
 
           <h4 style="margin-top: 30px;">Selecione uma data e horário</h4>
-
-
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
             <button id="btnAnterior-sessao"
             style="padding:6px 12px;background:#444;color:white;border:none;border-radius:5px;cursor:pointer;">&larr;
@@ -289,11 +323,13 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
             style="padding:6px 12px;background:#444;color:white;border:none;border-radius:5px;cursor:pointer;">Próximo
             &rarr;</button>
           </div>
-          <div id="calendario-sessao"></div>
+          <div id="calendario-sessao" style="display:flex;flex-wrap:wrap; align-items:center; gap:10px;"></div>
           <h4 id="info-sessao"></h4>
           <div id="horarios-sessao" style="display:flex;flex-wrap:wrap;gap:10px;"></div>
           <input type="hidden" name="data_sessao" id="dataSessaoSelecionada">
           <input type="hidden" name="horario_sessao" id="horarioSessaoSelecionado">
+
+          
 
           <input type="submit" value="Cadastrar Sessão"> </form>
       </div>
@@ -380,27 +416,23 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
         <h2>Relatorio</h2>
 
         <form method="post" action="relatorio.php">
-        
-        <div class="custom-multiselect">
-        <div class="select-box" onclick="toggleCheckboxes()">
-            <span id="selected">Selecione um ou mais Filmes:</span>
-            <span class="arrow">&#9662;</span>
-        </div>
-        <div id="checkboxes" class="checkboxes">
+        <label for="filme">
+        Filme:
+        <select name="filme" id="filme" required>
+            <option value="" disabled selected>Selecione um filme...</option>
+            <option value="todos">Todos os filmes</option>
             <?php 
             if (!empty($filmes_biblioteca)) {
                 foreach ($filmes_biblioteca as $filme) {
-                    echo '<label style="display:block; margin-bottom:5px;">';
-                    echo '<input type="checkbox" name="filmes[]" value="' . $filme['id_filme'] . '"> ';
-                    echo htmlspecialchars($filme['titulo']);
-                    echo '</label>';
+                    echo '<option value="' . $filme['id'] . '">' . htmlspecialchars($filme['titulo']) . '</option>';
                 }
             } else {
-                echo '<p>Nenhum filme cadastrado.</p>';
+                echo '<option value="">Nenhum filme cadastrado</option>';
             }
             ?>
-        </div>
-    </div>
+            </select>
+            </label>
+
 
             <label for="tipo_exibicao_relatorio">Tipo de Exibição:</label>
             
@@ -408,7 +440,7 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
                 <input
                 type="checkbox"
                 name="tipo_exibicao_relatorio[]"
-                value="2D"
+                value="2d"
                 />
                 2D
             </label>
@@ -416,40 +448,109 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
                 <input
                 type="checkbox"
                 name="tipo_exibicao_relatorio[]"
-                value="3D"
+                value="3d"
                 />
                 3D
             </label>
-
-          <h4 style="margin-top: 30px;">Selecione as datas e horários</h4>
-          <div style="display:flex; align-items:center; gap:10px;margin-bottom:20px;">
-            <button id="btnAnterior-relatorio"
-            style="padding:6px 12px;background:#444;color:white;border:none;border-radius:5px;cursor:pointer;">&larr;
-            Anterior</button>
-            <h3 id="mesAnoAtual-relatorio" style="margin:0;"></h3>
-            <button id="btnProximo-relatorio"
-            style="padding:6px 12px;background:#444;color:white;border:none;border-radius:5px;cursor:pointer;">Próximo
-            &rarr;</button>
-          </div>
-          <div id="calendario-relatorio" style="display:flex;flex-wrap:wrap; align-items:center; gap:10px;"></div>
-          <h4 id="info-relatorio"></h4>
-          <div id="horarios-relatorio" style="display:flex;flex-wrap:wrap; align-items:center; gap:10px;"></div>
-          <input type="hidden" name="data_relatorio" id="dataRelatorioSelecionada">
-          <input type="hidden" name="horario_relatorio" id="horarioRelatorioSelecionado">
+        
+            
+            
+            <label for="periodo_relatorio">Escolha o período:</label>
+            <label>
+                <input type="radio" name="periodo" value="15dias">
+                    15 dias
+            </label>
 
             <label>
-                   <p> SELECIONE O PERIODO NO CALENDARIO <br>
+                <input type="radio" name="periodo" value="30dias">
+                    30 dias
+            </label>
+            <p style="font-weight: bold;">ou</p>
+            <label>
+                <input type="date" name="periodo_perso" value="">
                     
-                </label>
+            </label><br>
+
+          
+          
+            <input type="submit" value="Emitir Relatorio"> 
+        </form>
+      </div>
+    </div>
+
+    <!-- ALTERAR CADASTRO AINDA PRECISA FAZER TUDO--> 
+    <div id="alterarcadastro" class="modal">
+      <div class="modal-conteudo">
+        <span class="fechar fechar-alterarcadastro">&times;</span>
+        <h2>Alterar Cadastro</h2>
+
+        <form method="post" action="relatorio.php">
+        <label for="filme">
+        Filme:
+        <select name="filme" id="filme" required>
+            <option value="" disabled selected>Selecione um filme...</option>
+            <option value="todos">Todos os filmes</option>
+            <?php 
+            if (!empty($filmes_biblioteca)) {
+                foreach ($filmes_biblioteca as $filme) {
+                    echo '<option value="' . $filme['id'] . '">' . htmlspecialchars($filme['titulo']) . '</option>';
+                }
+            } else {
+                echo '<option value="">Nenhum filme cadastrado</option>';
+            }
+            ?>
+            </select>
+            </label>
 
 
-          <input type="submit" value="Emitir Relatorio"> </form>
+            <label for="tipo_exibicao_alterarcadastro">Tipo de Exibição:</label>
+            
+            <label>
+                <input
+                type="checkbox"
+                name="tipo_exibicao_alterarcadastro[]"
+                value="2d"
+                />
+                2D
+            </label>
+            <label>
+                <input
+                type="checkbox"
+                name="tipo_exibicao_alterarcadastro[]"
+                value="3d"
+                />
+                3D
+            </label>
+        
+            
+            
+            <label for="periodo_alterarcadastro">Escolha o período:</label>
+            <label>
+                <input type="radio" name="periodo" value="15dias">
+                    15 dias
+            </label>
+
+            <label>
+                <input type="radio" name="periodo" value="30dias">
+                    30 dias
+            </label>
+            <p style="font-weight: bold;">ou</p>
+            <label>
+                <input type="date" name="periodo_perso" value="">
+                    
+            </label><br>
+
+          
+          
+            <input type="submit" value="Alterar Cadastro"> 
+        </form>
       </div>
     </div>
 
     <script src="script.js"></script>
 
     <script>
+    
         // Funções do calendário 
         const diasSemana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
         const hoje = new Date();
@@ -468,12 +569,14 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
         for (let i = 1; i <= 31; i++) {
             relatoriosDisponiveis[i] = ['13:00', '15:30', '18:00', '20:30'];
         }
-        let datasSelecionadasPorTipo = {
+
+// ESSAS 13 LINHAS ABAIXO PEGUEI DE DEBORA
+
+       let datasSelecionadasPorTipo = {
     'Sessão': { inicio: null, fim: null },
     'Ingressos': { inicio: null, fim: null },
     'Relatorio': { inicio: null, fim: null }
 };
-
 // Função para formatar uma data para YYYY-MM-DD
 function formatarData(dataObj) {
     if (!dataObj) return ''; // Retorna vazio se a data for nula
@@ -484,10 +587,9 @@ function formatarData(dataObj) {
 }
 
 
-// Adicione `modoSelecao` como um parâmetro à sua função `criarCalendario`
 
 
-        function criarCalendario(tipo, containerId, infoId, horariosId, sessoes, mesAnoId, btnAntId, btnProxId, modoSelecao = 'unica') {
+        function criarCalendario(tipo, containerId, infoId, horariosId, sessoes, mesAnoId, btnAntId, btnProxId,  modoSelecao = 'unica') { // ADICIONEI  modoSelecao = 'unica' DO DE DEBORA
             let mes = hoje.getMonth();
             let ano = hoje.getFullYear();
 
@@ -532,6 +634,9 @@ function formatarData(dataObj) {
                     box.style.textAlign = 'center';
                     box.style.cursor = 'pointer';
 
+
+// ESSAS 12 LINHAS ABAIXO PEGUEI DE DEBORA
+
                     const dataAtual = new Date(ano, mes, d);
                     dataAtual.setHours(0, 0, 0, 0); // Normaliza para comparação
 
@@ -548,8 +653,42 @@ function formatarData(dataObj) {
                     }
 
 
-                    // === Lógica de Clique para Seleção ===
-                    box.onclick = () => {
+                    //const data = new Date(ano, mes, d);
+                    //const diaSemana = diasSemana[data.getDay()]; // VER SE PERMANECE 
+                    //const rotulo = `${diaSemana} - ${d}/${mes + 1}`; // VER SE PERMANECE
+
+
+
+
+
+
+// === Lógica de Clique para Seleção ===
+                   /* box.onclick = () => {
+                        [...grade.children].forEach(el => {
+                            if (el.textContent && !diasSemana.includes(el.textContent)) el.style.background = 'black';
+                        });
+                        box.style.background = '#ff8c5a';
+                        info.textContent = `Sessões em ${rotulo}`;
+                        horarios.innerHTML = '';
+                        (sessoes[d] || []).forEach(h => {
+                            const btn = document.createElement('button');
+                            btn.textContent = h;
+                            btn.style.padding = '6px 10px';
+                            btn.style.margin = '5px';
+                            btn.style.border = 'none';
+                            btn.style.borderRadius = '5px';
+                            btn.style.background = '#4caf50';
+                            btn.style.color = 'white';
+                            btn.style.cursor = 'pointer';
+                            btn.onclick = () => {
+                                document.getElementById('dataSessaoSelecionada').value = `${ano}-${("0" + (mes + 1)).slice(-2)}-${("0" + d).slice(-2)}`;
+                                document.getElementById('horarioSessaoSelecionado').value = h;
+                                alert(`Você escolheu ${h} no dia ${rotulo} (${tipo})`);
+                            }
+                            horarios.appendChild(btn);
+                        });
+                    };*/
+  box.onclick = () => {
                         const dataClicada = new Date(ano, mes, d);
                         dataClicada.setHours(0, 0, 0, 0); // Normaliza
 
@@ -570,7 +709,7 @@ function formatarData(dataObj) {
 
                             // Atualiza o input hidden com o intervalo
                             const inputDataSessao = document.getElementById('dataSessaoSelecionada');
-                            if (datasSelecionadasPorTipo[tipo].inicio && datasSelecionadasPorTipo[tipo].fim) {
+                            if (datasSelecionadasPorTipo[tipo].inicio && !datasSelecionadasPorTipo[tipo].fim) {
                                 inputDataSessao.value = `${formatarData(datasSelecionadasPorTipo[tipo].inicio)}|${formatarData(datasSelecionadasPorTipo[tipo].fim)}`;
                                 info.textContent = `Sessão de ${formatarData(datasSelecionadasPorTipo[tipo].inicio)} até ${formatarData(datasSelecionadasPorTipo[tipo].fim)}`;
                                 // Aqui você pode também limpar os horários se eles não forem relevantes para um intervalo
@@ -578,7 +717,30 @@ function formatarData(dataObj) {
                             } else if (datasSelecionadasPorTipo[tipo].inicio) {
                                 inputDataSessao.value = formatarData(datasSelecionadasPorTipo[tipo].inicio);
                                 info.textContent = `Data Inicial da Sessão: ${formatarData(datasSelecionadasPorTipo[tipo].inicio)}`;
-                                horarios.innerHTML = ''; // Limpa horários se apenas a data inicial está selecionada
+                                //horarios.innerHTML = ''; // Limpa horários se apenas a data inicial está selecionada
+                                horarios.innerHTML = ''; // Limpa horários anteriores
+
+                               /* // Exibe horários se houver data inicial
+                                if (datasSelecionadasPorTipo[tipo].inicio && !datasSelecionadasPorTipo[tipo].fim) {
+                                    const dia = datasSelecionadasPorTipo[tipo].inicio.getDate();
+                                    (sessoes[dia] || []).forEach(h => {
+                                        const btn = document.createElement('button');
+                                        btn.textContent = h;
+                                        btn.style.padding = '6px 10px';
+                                        btn.style.margin = '5px';
+                                        btn.style.border = 'none';
+                                        btn.style.borderRadius = '5px';
+                                        btn.style.background = '#4caf50';
+                                        btn.style.color = 'white';
+                                        btn.style.cursor = 'pointer';
+                                        btn.onclick = () => {
+                                            document.getElementById('dataSessaoSelecionada').value = formatarData(datasSelecionadasPorTipo[tipo].inicio);
+                                            document.getElementById('horarioSessaoSelecionado').value = h;
+                                        }
+                                        horarios.appendChild(btn);
+                                    });
+                                }*/
+
                             } else {
                                 inputDataSessao.value = '';
                                 info.textContent = '';
@@ -602,6 +764,9 @@ function formatarData(dataObj) {
 
                             const diaSemana = diasSemana[dataClicada.getDay()];
                             const rotulo = `${diaSemana} - ${d}/${mes + 1}`;
+
+
+                            
                             info.textContent = `Sessões em ${rotulo}`;
                             horarios.innerHTML = ''; // Limpa horários ao selecionar uma nova data única
 
@@ -661,8 +826,8 @@ function formatarData(dataObj) {
                 'mesAnoAtual-sessao',
                 'btnAnterior-sessao',
                 'btnProximo-sessao',
-                'intervalo'
-            );
+                'intervalo' //ADICIONADO DO DE DEBORA
+            );            
         });
 
         // Inicializa o calendário ao carregar a página INGRESSO
@@ -676,11 +841,11 @@ function formatarData(dataObj) {
                 'mesAnoAtual-ingresso',
                 'btnAnterior-ingresso',
                 'btnProximo-ingresso',
-                'unica  '
+                'unica  ' //ADICIONADO DO DE DEBORA
             );
         });
 
- // Inicializa o calendário ao carregar a página RELATORIO
+ // Inicializa o calendário ao carregar a página RELATORIO ADICIONADO 13 LINHAS DO DE DEBORA
         window.addEventListener('DOMContentLoaded', () => {
             criarCalendario(
                 'Relatorio',
@@ -757,7 +922,7 @@ function formatarData(dataObj) {
             });
         }
 
-        // Script para abrir e fechar modais (assumo que 'script.js' já cuida disso)
+        // Script para abrir e fechar modais 
       
         document.addEventListener('DOMContentLoaded', () => {
             const modalConfirmarExclusao = document.getElementById('modalConfirmarExclusao');
@@ -846,10 +1011,11 @@ function configurarModal(botaoId, modalId, fecharClass) {
 
 // Chamada para cada modal
 configurarModal('cadastrarfilme', 'modalFilme', 'fechar-filme');
-configurarModal('Verfilmes', 'modalVerfilmes', 'fechar-Verfilmes');
+configurarModal('Verfilmes', 'modalVerFilmes', 'fechar-Verfilmes');
 configurarModal('cadastrarsessao', 'modalSessao', 'fechar-sessao');
 configurarModal('cadastraringresso', 'modalIngresso', 'fechar-ingresso');
 configurarModal('relatoriovendas', 'modalRelatorio', 'fechar-relatorio');
+configurarModal('alterarcadastro', 'modalalterarcadastro', 'fechar-alterarcadastro');
 
         }); // Fim do DOMContentLoaded
 
