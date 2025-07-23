@@ -1,5 +1,5 @@
 <?php
-require_once '../conexao.php'; // ou o caminho correto para seu arquivo de conexão
+require_once '../../php/conexao.php'; // ou o caminho correto para seu arquivo de conexão
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recebe os dados

@@ -480,78 +480,88 @@ session_start();
       </div>
     </div>
 
-    <!-- ALTERAR CADASTRO AINDA PRECISA FAZER TUDO--> 
-    <div id="alterarcadastro" class="modal">
-      <div class="modal-conteudo">
-        <span class="fechar fechar-alterarcadastro">&times;</span>
-        <h2>Alterar Cadastro</h2>
+    <!-- alterar cadastro -->   
+<?php
+    if (isset($_GET['mensagem'])) {
+    $mensagem = match ($_GET['mensagem']) {
+        'cpf_invalido'     => 'CPF inválido.',
+        'tipo_invalido'    => 'Tipo inválido.',
+        'nao_encontrado'   => 'Usuário não encontrado.',
+        'erro_atualizar'   => 'Erro ao atualizar o usuário.',
+        'sucesso'          => 'Tipo de usuário alterado com sucesso!',
+        default            => ''
+    };
 
-        <form method="post" action="relatorio.php">
-        <label for="filme">
-        Filme:
-        <select name="filme" id="filme" required>
-            <option value="" disabled selected>Selecione um filme...</option>
-            <option value="todos">Todos os filmes</option>
-            <?php 
-            if (!empty($filmes_biblioteca)) {
-                foreach ($filmes_biblioteca as $filme) {
-                    echo '<option value="' . $filme['id'] . '">' . htmlspecialchars($filme['titulo']) . '</option>';
-                }
-            } else {
-                echo '<option value="">Nenhum filme cadastrado</option>';
-            }
-            ?>
-            </select>
-            </label>
+    if (!empty($mensagem)) {
+        echo "<script>alert('$mensagem');</script>";
+    }
+}
+?>
+
+<div id="modalCadastro" class="modal">
+  <div class="modal-conteudo">
+    <span class="fechar">&times;</span>
+    <h2>Alterar Tipo de Usuário</h2>
+
+    <form method="POST" action="form_alterar_cadastro.php">
+      <label for="cpf_usuario">CPF do usuário:</label>
+      <input type="text" name="cpf_usuario" id="cpf_usuario"
+             placeholder="Digite o CPF"
+             pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+             title="Formato esperado: 123.456.789-10"
+             required>
+
+      <label for="novo_tipo">Novo tipo:</label>
+      <select name="novo_tipo" id="novo_tipo" required>
+        <option value="" disabled selected>Selecione o tipo...</option>
+        <option value="cliente">Cliente</option>
+        <option value="admin">Admin</option>
+      </select>
+
+      <br><br>
+      <button type="submit">Alterar</button>
+    </form>
+  </div>
+</div>
+
+<!-- Script de máscara para CPF -->
+<script>
+document.getElementById('cpf_usuario').addEventListener('input', function (e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 11) value = value.slice(0, 11);
+    value = value.replace(/(\d{3})(\d)/, '$1.$2');
+    value = value.replace(/(\d{3})(\d)/, '$1.$2');
+    value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    e.target.value = value;
+});
+</script>
 
 
-            <label for="tipo_exibicao_alterarcadastro">Tipo de Exibição:</label>
-            
-            <label>
-                <input
-                type="checkbox"
-                name="tipo_exibicao_alterarcadastro[]"
-                value="2d"
-                />
-                2D
-            </label>
-            <label>
-                <input
-                type="checkbox"
-                name="tipo_exibicao_alterarcadastro[]"
-                value="3d"
-                />
-                3D
-            </label>
-        
-            
-            
-            <label for="periodo_alterarcadastro">Escolha o período:</label>
-            <label>
-                <input type="radio" name="periodo" value="15dias">
-                    15 dias
-            </label>
+<!-- JavaScript -->
+<script>
+  const botao = document.getElementById('alterarcadastro');
+  const modal = document.getElementById('modalCadastro');
+  const fechar = document.querySelector('.fechar');
 
-            <label>
-                <input type="radio" name="periodo" value="30dias">
-                    30 dias
-            </label>
-            <p style="font-weight: bold;">ou</p>
-            <label>
-                <input type="date" name="periodo_perso" value="">
-                    
-            </label><br>
+  botao.onclick = () => {
+    modal.style.display = 'block';
+  };
 
-          
-          
-            <input type="submit" value="Alterar Cadastro"> 
-        </form>
-      </div>
-    </div>
+  fechar.onclick = () => {
+    modal.style.display = 'none';
+  };
 
-    <script src="script.js"></script>
+  window.onclick = (event) => {
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  };
+</script>
 
-    <script>
+
+
+
+        <script>
     
         // Funções do calendário 
         const diasSemana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
