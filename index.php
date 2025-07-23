@@ -81,7 +81,7 @@ $conn->close();
     <nav class="paginas">
       <a href="/index.php">Início</a>
       <a href="#filmesEmCartaz">Filmes</a>
-      <a href="#">Promoções</a>
+      <a href="#">Promoções </a>
       <a href="/telas/Contato/contato.html">Contato </a>
     </nav>
     <div class="perfil">
