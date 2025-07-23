@@ -45,6 +45,7 @@ $conn->close(); // Feche a conexão após buscar os dados para a página
         <button id="cadastrarsessao">Cadastrar Sessão</button>
         <button id="cadastraringresso">Cadastrar Ingresso</button>
         <button id="relatoriovendas">Relatório de Vendas</button>
+        <button id="alterarcadastro">Alterar Cadastro</button>
         <a href="\index.php" class="btn-voltar">Voltar a tela inicial</a>
         <a href="/php/logout.php" class="btn-sair">Sair</a>
 <style>
